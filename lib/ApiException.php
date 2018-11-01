@@ -27,7 +27,7 @@
 
 namespace Dhl\ParcelManagement;
 
-use \Exception;
+use Exception;
 
 /**
  * ApiException Class Doc Comment
@@ -57,17 +57,17 @@ class ApiException extends Exception
     /**
      * The deserialized response object
      *
-     * @var $responseObject;
+     * @var $responseObject ;
      */
     protected $responseObject;
 
     /**
      * Constructor
      *
-     * @param string        $message         Error message
-     * @param int           $code            HTTP status code
+     * @param string $message Error message
+     * @param int $code HTTP status code
      * @param string[]|null $responseHeaders HTTP response header
-     * @param mixed         $responseBody    HTTP decoded body of the server response either as \stdClass or string
+     * @param mixed $responseBody HTTP decoded body of the server response either as \stdClass or string
      */
     public function __construct($message = "", $code = 0, $responseHeaders = [], $responseBody = null)
     {
@@ -97,6 +97,16 @@ class ApiException extends Exception
     }
 
     /**
+     * Gets the deseralized response object (during deserialization)
+     *
+     * @return mixed the deserialized response object
+     */
+    public function getResponseObject()
+    {
+        return $this->responseObject;
+    }
+
+    /**
      * Sets the deseralized response object (during deserialization)
      *
      * @param mixed $obj Deserialized response object
@@ -106,15 +116,5 @@ class ApiException extends Exception
     public function setResponseObject($obj)
     {
         $this->responseObject = $obj;
-    }
-
-    /**
-     * Gets the deseralized response object (during deserialization)
-     *
-     * @return mixed the deserialized response object
-     */
-    public function getResponseObject()
-    {
-        return $this->responseObject;
     }
 }

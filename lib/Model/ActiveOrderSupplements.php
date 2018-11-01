@@ -27,8 +27,8 @@
 
 namespace Dhl\ParcelManagement\Model;
 
-use \ArrayAccess;
-use \Dhl\ParcelManagement\ObjectSerializer;
+use ArrayAccess;
+use Dhl\ParcelManagement\ObjectSerializer;
 
 /**
  * ActiveOrderSupplements Class Doc Comment
@@ -44,31 +44,81 @@ class ActiveOrderSupplements implements ModelInterface, ArrayAccess
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $swaggerModelName = 'ActiveOrderSupplements';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization
+     *
+     * @var string[]
+     */
     protected static $swaggerTypes = [
         'creationTime' => '\DateTime',
-        'lastUpdate' => '\DateTime'
+        'lastUpdate' => '\DateTime',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization
+     *
+     * @var string[]
+     */
     protected static $swaggerFormats = [
         'creationTime' => 'date-time',
-        'lastUpdate' => 'date-time'
+        'lastUpdate' => 'date-time',
     ];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
+     *
+     * @var string[]
+     */
+    protected static $attributeMap = [
+        'creationTime' => 'creationTime',
+        'lastUpdate' => 'lastUpdate',
+    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @var string[]
+     */
+    protected static $setters = [
+        'creationTime' => 'setCreationTime',
+        'lastUpdate' => 'setLastUpdate',
+    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @var string[]
+     */
+    protected static $getters = [
+        'creationTime' => 'getCreationTime',
+        'lastUpdate' => 'getLastUpdate',
+    ];
+
+    /**
+     * Associative array for storing property values
+     *
+     * @var mixed[]
+     */
+    protected $container = [];
+
+    /**
+     * Constructor
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['creationTime'] = isset($data['creationTime']) ? $data['creationTime'] : null;
+        $this->container['lastUpdate'] = isset($data['lastUpdate']) ? $data['lastUpdate'] : null;
+    }
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -89,37 +139,6 @@ class ActiveOrderSupplements implements ModelInterface, ArrayAccess
     {
         return self::$swaggerFormats;
     }
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static $attributeMap = [
-        'creationTime' => 'creationTime',
-        'lastUpdate' => 'lastUpdate'
-    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static $setters = [
-        'creationTime' => 'setCreationTime',
-        'lastUpdate' => 'setLastUpdate'
-    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static $getters = [
-        'creationTime' => 'getCreationTime',
-        'lastUpdate' => 'getLastUpdate'
-    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -162,27 +181,15 @@ class ActiveOrderSupplements implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    
-
     /**
-     * Associative array for storing property values
+     * Validate all the properties in the model
+     * return true if all passed
      *
-     * @var mixed[]
+     * @return bool True if all properties are valid
      */
-    protected $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
+    public function valid()
     {
-        $this->container['creationTime'] = isset($data['creationTime']) ? $data['creationTime'] : null;
-        $this->container['lastUpdate'] = isset($data['lastUpdate']) ? $data['lastUpdate'] : null;
+        return count($this->listInvalidProperties()) === 0;
     }
 
     /**
@@ -200,20 +207,9 @@ class ActiveOrderSupplements implements ModelInterface, ArrayAccess
         if ($this->container['lastUpdate'] === null) {
             $invalidProperties[] = "'lastUpdate' can't be null";
         }
+
         return $invalidProperties;
     }
-
-    /**
-     * Validate all the properties in the model
-     * return true if all passed
-     *
-     * @return bool True if all properties are valid
-     */
-    public function valid()
-    {
-        return count($this->listInvalidProperties()) === 0;
-    }
-
 
     /**
      * Gets creationTime
@@ -228,7 +224,8 @@ class ActiveOrderSupplements implements ModelInterface, ArrayAccess
     /**
      * Sets creationTime
      *
-     * @param \DateTime $creationTime Initial creation time of this order formatted as date-time according to [RFC3339](http://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14)
+     * @param \DateTime $creationTime Initial creation time of this order formatted as date-time according to
+     *     [RFC3339](http://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14)
      *
      * @return $this
      */
@@ -252,7 +249,8 @@ class ActiveOrderSupplements implements ModelInterface, ArrayAccess
     /**
      * Sets lastUpdate
      *
-     * @param \DateTime $lastUpdate Last update time of this order formatted as date-time according to [RFC3339](http://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14)
+     * @param \DateTime $lastUpdate Last update time of this order formatted as date-time according to
+     *     [RFC3339](http://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14)
      *
      * @return $this
      */
@@ -262,6 +260,7 @@ class ActiveOrderSupplements implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -290,7 +289,7 @@ class ActiveOrderSupplements implements ModelInterface, ArrayAccess
      * Sets value based on offset.
      *
      * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param mixed $value Value to be set
      *
      * @return void
      */
@@ -332,5 +331,3 @@ class ActiveOrderSupplements implements ModelInterface, ArrayAccess
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
-
-

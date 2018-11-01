@@ -26,16 +26,16 @@
 
 namespace Dhl\ParcelManagement\Api;
 
+use Dhl\ParcelManagement\ApiException;
+use Dhl\ParcelManagement\Configuration;
+use Dhl\ParcelManagement\HeaderSelector;
+use Dhl\ParcelManagement\ObjectSerializer;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\MultipartStream;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\RequestOptions;
-use Dhl\ParcelManagement\ApiException;
-use Dhl\ParcelManagement\Configuration;
-use Dhl\ParcelManagement\HeaderSelector;
-use Dhl\ParcelManagement\ObjectSerializer;
 
 /**
  * CheckoutApi Class Doc Comment
@@ -108,6 +108,7 @@ class CheckoutApi
             $startDate,
             $xRequestID
         );
+
         return $response;
     }
 
@@ -182,7 +183,7 @@ class CheckoutApi
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
                 $response->getStatusCode(),
-                $response->getHeaders()
+                $response->getHeaders(),
             ];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
@@ -205,100 +206,6 @@ class CheckoutApi
             }
             throw $e;
         }
-    }
-
-    /**
-     * Operation checkoutRecipientZipAvailableServicesGetAsync
-     *
-     * Queries available services for the given `recipientZip`.
-     *
-     * @param  string $xEKP DHL customer number of the sender (required)
-     * @param  string $recipientZip ZIP code of recipient. (required)
-     * @param  \DateTime $startDate Day when the shipment will be dropped be the sender in the DHL parcel center
-     *          (required)
-     * @param  string $xRequestID HTTP-Header for HTTP request correlation (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function checkoutRecipientZipAvailableServicesGetAsync($xEKP, $recipientZip, $startDate, $xRequestID = null)
-    {
-        return $this->checkoutRecipientZipAvailableServicesGetAsyncWithHttpInfo(
-            $xEKP,
-            $recipientZip,
-            $startDate,
-            $xRequestID
-        )
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation checkoutRecipientZipAvailableServicesGetAsyncWithHttpInfo
-     *
-     * Queries available services for the given `recipientZip`.
-     *
-     * @param  string $xEKP DHL customer number of the sender (required)
-     * @param  string $recipientZip ZIP code of recipient. (required)
-     * @param  \DateTime $startDate Day when the shipment will be dropped be the sender in the DHL parcel center
-     *          (required)
-     * @param  string $xRequestID HTTP-Header for HTTP request correlation (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function checkoutRecipientZipAvailableServicesGetAsyncWithHttpInfo(
-        $xEKP,
-        $recipientZip,
-        $startDate,
-        $xRequestID = null
-    ) {
-        $returnType = '\Dhl\ParcelManagement\Model\AvailableServicesMap';
-        $request = $this->checkoutRecipientZipAvailableServicesGetRequest(
-            $xEKP,
-            $recipientZip,
-            $startDate,
-            $xRequestID
-        );
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        $response->getBody()
-                    );
-                }
-            );
     }
 
     /**
@@ -402,7 +309,7 @@ class CheckoutApi
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
                         'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
@@ -439,12 +346,32 @@ class CheckoutApi
         );
 
         $query = \GuzzleHttp\Psr7\build_query($queryParams);
+
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
         );
+    }
+
+    /**
+     * Create http client option
+     *
+     * @throws \RuntimeException on file opening failure
+     * @return array of http client options
+     */
+    protected function createHttpClientOption()
+    {
+        $options = [];
+        if ($this->config->getDebug()) {
+            $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
+            if (!$options[RequestOptions::DEBUG]) {
+                throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
+            }
+        }
+
+        return $options;
     }
 
     /**
@@ -478,6 +405,7 @@ class CheckoutApi
             $startDate,
             $xRequestID
         );
+
         return $response;
     }
 
@@ -556,7 +484,7 @@ class CheckoutApi
             return [
                 ObjectSerializer::deserialize($content, $returnType, []),
                 $response->getStatusCode(),
-                $response->getHeaders()
+                $response->getHeaders(),
             ];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
@@ -579,112 +507,6 @@ class CheckoutApi
             }
             throw $e;
         }
-    }
-
-    /**
-     * Operation checkoutRecipientZipDeliveryDayEstimationGetAsync
-     *
-     * Queries estimation of delivery day in checkout
-     *
-     * @param  string $xEKP DHL customer number of the sender (required)
-     * @param  string $recipientZip ZIP code of recipient. (required)
-     * @param  string $startParcelCenter ID of DHL parcel center where the shipment is initially dropped by the sender
-     *          (required)
-     * @param  \DateTime $startDate Day when the shipment will be dropped be the sender in the DHL parcel center
-     *          (required)
-     * @param  string $xRequestID HTTP-Header for HTTP request correlation (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function checkoutRecipientZipDeliveryDayEstimationGetAsync(
-        $xEKP,
-        $recipientZip,
-        $startParcelCenter,
-        $startDate,
-        $xRequestID = null
-    ) {
-        return $this->checkoutRecipientZipDeliveryDayEstimationGetAsyncWithHttpInfo(
-            $xEKP,
-            $recipientZip,
-            $startParcelCenter,
-            $startDate,
-            $xRequestID
-        )
-            ->then(
-                function ($response) {
-                    return $response[0];
-                }
-            );
-    }
-
-    /**
-     * Operation checkoutRecipientZipDeliveryDayEstimationGetAsyncWithHttpInfo
-     *
-     * Queries estimation of delivery day in checkout
-     *
-     * @param  string $xEKP DHL customer number of the sender (required)
-     * @param  string $recipientZip ZIP code of recipient. (required)
-     * @param  string $startParcelCenter ID of DHL parcel center where the shipment is initially dropped by the sender
-     *          (required)
-     * @param  \DateTime $startDate Day when the shipment will be dropped be the sender in the DHL parcel center
-     *          (required)
-     * @param  string $xRequestID HTTP-Header for HTTP request correlation (optional)
-     *
-     * @throws \InvalidArgumentException
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     */
-    public function checkoutRecipientZipDeliveryDayEstimationGetAsyncWithHttpInfo(
-        $xEKP,
-        $recipientZip,
-        $startParcelCenter,
-        $startDate,
-        $xRequestID = null
-    ) {
-        $returnType = '\Dhl\ParcelManagement\Model\DeliveryDayEstimation';
-        $request = $this->checkoutRecipientZipDeliveryDayEstimationGetRequest(
-            $xEKP,
-            $recipientZip,
-            $startParcelCenter,
-            $startDate,
-            $xRequestID
-        );
-
-        return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
-            ->then(
-                function ($response) use ($returnType) {
-                    $responseBody = $response->getBody();
-                    if ($returnType === '\SplFileObject') {
-                        $content = $responseBody; //stream goes to serializer
-                    } else {
-                        $content = $responseBody->getContents();
-                        if ($returnType !== 'string') {
-                            $content = json_decode($content);
-                        }
-                    }
-
-                    return [
-                        ObjectSerializer::deserialize($content, $returnType, []),
-                        $response->getStatusCode(),
-                        $response->getHeaders()
-                    ];
-                },
-                function ($exception) {
-                    $response = $exception->getResponse();
-                    $statusCode = $response->getStatusCode();
-                    throw new ApiException(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $exception->getRequest()->getUri()
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        $response->getBody()
-                    );
-                }
-            );
     }
 
     /**
@@ -809,7 +631,7 @@ class CheckoutApi
                 foreach ($formParams as $formParamName => $formParamValue) {
                     $multipartContents[] = [
                         'name' => $formParamName,
-                        'contents' => $formParamValue
+                        'contents' => $formParamValue,
                     ];
                 }
                 // for HTTP post (form)
@@ -826,7 +648,7 @@ class CheckoutApi
         if ($this->config->getUsername() !== null || $this->config->getPassword() !== null) {
             $headers['Authorization'] = 'Basic ' . base64_encode(
                 $this->config->getUsername() . ":" . $this->config->getPassword()
-                );
+            );
         }
         // this endpoint requires API key authentication
         $apiKey = $this->config->getApiKeyWithPrefix('DPDHL-User-Authentication-Token');
@@ -846,30 +668,12 @@ class CheckoutApi
         );
 
         $query = \GuzzleHttp\Psr7\build_query($queryParams);
+
         return new Request(
             'GET',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
         );
-    }
-
-    /**
-     * Create http client option
-     *
-     * @throws \RuntimeException on file opening failure
-     * @return array of http client options
-     */
-    protected function createHttpClientOption()
-    {
-        $options = [];
-        if ($this->config->getDebug()) {
-            $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
-            if (!$options[RequestOptions::DEBUG]) {
-                throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
-            }
-        }
-
-        return $options;
     }
 }

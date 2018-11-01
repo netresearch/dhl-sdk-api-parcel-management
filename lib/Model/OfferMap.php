@@ -27,8 +27,8 @@
 
 namespace Dhl\ParcelManagement\Model;
 
-use \ArrayAccess;
-use \Dhl\ParcelManagement\ObjectSerializer;
+use ArrayAccess;
+use Dhl\ParcelManagement\ObjectSerializer;
 
 /**
  * OfferMap Class Doc Comment
@@ -44,33 +44,87 @@ class OfferMap implements ModelInterface, ArrayAccess
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $swaggerModelName = 'OfferMap';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization
+     *
+     * @var string[]
+     */
     protected static $swaggerTypes = [
         'preferredDay' => '\Dhl\ParcelManagement\Model\PreferredDayOffer',
         'preferredNeighbour' => '\Dhl\ParcelManagement\Model\Offer',
-        'preferredLocation' => '\Dhl\ParcelManagement\Model\Offer'
+        'preferredLocation' => '\Dhl\ParcelManagement\Model\Offer',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization
+     *
+     * @var string[]
+     */
     protected static $swaggerFormats = [
         'preferredDay' => null,
         'preferredNeighbour' => null,
-        'preferredLocation' => null
+        'preferredLocation' => null,
     ];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
+     *
+     * @var string[]
+     */
+    protected static $attributeMap = [
+        'preferredDay' => 'preferredDay',
+        'preferredNeighbour' => 'preferredNeighbour',
+        'preferredLocation' => 'preferredLocation',
+    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @var string[]
+     */
+    protected static $setters = [
+        'preferredDay' => 'setPreferredDay',
+        'preferredNeighbour' => 'setPreferredNeighbour',
+        'preferredLocation' => 'setPreferredLocation',
+    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @var string[]
+     */
+    protected static $getters = [
+        'preferredDay' => 'getPreferredDay',
+        'preferredNeighbour' => 'getPreferredNeighbour',
+        'preferredLocation' => 'getPreferredLocation',
+    ];
+
+    /**
+     * Associative array for storing property values
+     *
+     * @var mixed[]
+     */
+    protected $container = [];
+
+    /**
+     * Constructor
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['preferredDay'] = isset($data['preferredDay']) ? $data['preferredDay'] : null;
+        $this->container['preferredNeighbour'] = isset($data['preferredNeighbour']) ? $data['preferredNeighbour'] : null;
+        $this->container['preferredLocation'] = isset($data['preferredLocation']) ? $data['preferredLocation'] : null;
+    }
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -91,40 +145,6 @@ class OfferMap implements ModelInterface, ArrayAccess
     {
         return self::$swaggerFormats;
     }
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static $attributeMap = [
-        'preferredDay' => 'preferredDay',
-        'preferredNeighbour' => 'preferredNeighbour',
-        'preferredLocation' => 'preferredLocation'
-    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static $setters = [
-        'preferredDay' => 'setPreferredDay',
-        'preferredNeighbour' => 'setPreferredNeighbour',
-        'preferredLocation' => 'setPreferredLocation'
-    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static $getters = [
-        'preferredDay' => 'getPreferredDay',
-        'preferredNeighbour' => 'getPreferredNeighbour',
-        'preferredLocation' => 'getPreferredLocation'
-    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -167,28 +187,15 @@ class OfferMap implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    
-
     /**
-     * Associative array for storing property values
+     * Validate all the properties in the model
+     * return true if all passed
      *
-     * @var mixed[]
+     * @return bool True if all properties are valid
      */
-    protected $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
+    public function valid()
     {
-        $this->container['preferredDay'] = isset($data['preferredDay']) ? $data['preferredDay'] : null;
-        $this->container['preferredNeighbour'] = isset($data['preferredNeighbour']) ? $data['preferredNeighbour'] : null;
-        $this->container['preferredLocation'] = isset($data['preferredLocation']) ? $data['preferredLocation'] : null;
+        return count($this->listInvalidProperties()) === 0;
     }
 
     /**
@@ -202,18 +209,6 @@ class OfferMap implements ModelInterface, ArrayAccess
 
         return $invalidProperties;
     }
-
-    /**
-     * Validate all the properties in the model
-     * return true if all passed
-     *
-     * @return bool True if all properties are valid
-     */
-    public function valid()
-    {
-        return count($this->listInvalidProperties()) === 0;
-    }
-
 
     /**
      * Gets preferredDay
@@ -286,6 +281,7 @@ class OfferMap implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -314,7 +310,7 @@ class OfferMap implements ModelInterface, ArrayAccess
      * Sets value based on offset.
      *
      * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param mixed $value Value to be set
      *
      * @return void
      */
@@ -356,5 +352,3 @@ class OfferMap implements ModelInterface, ArrayAccess
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
-
-

@@ -27,8 +27,8 @@
 
 namespace Dhl\ParcelManagement\Model;
 
-use \ArrayAccess;
-use \Dhl\ParcelManagement\ObjectSerializer;
+use ArrayAccess;
+use Dhl\ParcelManagement\ObjectSerializer;
 
 /**
  * PreferredDayAvailable Class Doc Comment
@@ -43,31 +43,81 @@ class PreferredDayAvailable implements ModelInterface, ArrayAccess
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $swaggerModelName = 'PreferredDayAvailable';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization
+     *
+     * @var string[]
+     */
     protected static $swaggerTypes = [
         'available' => 'bool',
-        'validDays' => '\Dhl\ParcelManagement\Model\TimeInterval[]'
+        'validDays' => '\Dhl\ParcelManagement\Model\TimeInterval[]',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization
+     *
+     * @var string[]
+     */
     protected static $swaggerFormats = [
         'available' => null,
-        'validDays' => null
+        'validDays' => null,
     ];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
+     *
+     * @var string[]
+     */
+    protected static $attributeMap = [
+        'available' => 'available',
+        'validDays' => 'validDays',
+    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @var string[]
+     */
+    protected static $setters = [
+        'available' => 'setAvailable',
+        'validDays' => 'setValidDays',
+    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @var string[]
+     */
+    protected static $getters = [
+        'available' => 'getAvailable',
+        'validDays' => 'getValidDays',
+    ];
+
+    /**
+     * Associative array for storing property values
+     *
+     * @var mixed[]
+     */
+    protected $container = [];
+
+    /**
+     * Constructor
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['available'] = isset($data['available']) ? $data['available'] : null;
+        $this->container['validDays'] = isset($data['validDays']) ? $data['validDays'] : null;
+    }
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -88,37 +138,6 @@ class PreferredDayAvailable implements ModelInterface, ArrayAccess
     {
         return self::$swaggerFormats;
     }
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static $attributeMap = [
-        'available' => 'available',
-        'validDays' => 'validDays'
-    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static $setters = [
-        'available' => 'setAvailable',
-        'validDays' => 'setValidDays'
-    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static $getters = [
-        'available' => 'getAvailable',
-        'validDays' => 'getValidDays'
-    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -161,27 +180,15 @@ class PreferredDayAvailable implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    
-
     /**
-     * Associative array for storing property values
+     * Validate all the properties in the model
+     * return true if all passed
      *
-     * @var mixed[]
+     * @return bool True if all properties are valid
      */
-    protected $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
+    public function valid()
     {
-        $this->container['available'] = isset($data['available']) ? $data['available'] : null;
-        $this->container['validDays'] = isset($data['validDays']) ? $data['validDays'] : null;
+        return count($this->listInvalidProperties()) === 0;
     }
 
     /**
@@ -199,20 +206,9 @@ class PreferredDayAvailable implements ModelInterface, ArrayAccess
         if ($this->container['validDays'] === null) {
             $invalidProperties[] = "'validDays' can't be null";
         }
+
         return $invalidProperties;
     }
-
-    /**
-     * Validate all the properties in the model
-     * return true if all passed
-     *
-     * @return bool True if all properties are valid
-     */
-    public function valid()
-    {
-        return count($this->listInvalidProperties()) === 0;
-    }
-
 
     /**
      * Gets available
@@ -261,6 +257,7 @@ class PreferredDayAvailable implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -289,7 +286,7 @@ class PreferredDayAvailable implements ModelInterface, ArrayAccess
      * Sets value based on offset.
      *
      * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param mixed $value Value to be set
      *
      * @return void
      */
@@ -331,5 +328,3 @@ class PreferredDayAvailable implements ModelInterface, ArrayAccess
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
-
-

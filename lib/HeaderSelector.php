@@ -26,8 +26,6 @@
 
 namespace Dhl\ParcelManagement;
 
-use \Exception;
-
 /**
  * ApiException Class Doc Comment
  *
@@ -38,6 +36,19 @@ use \Exception;
  */
 class HeaderSelector
 {
+
+    /**
+     * @param string[] $accept
+     * @return array
+     */
+    public function selectHeadersForMultipart($accept)
+    {
+        $headers = $this->selectHeaders($accept, []);
+
+        unset($headers['Content-Type']);
+
+        return $headers;
+    }
 
     /**
      * @param string[] $accept
@@ -54,18 +65,7 @@ class HeaderSelector
         }
 
         $headers['Content-Type'] = $this->selectContentTypeHeader($contentTypes);
-        return $headers;
-    }
 
-    /**
-     * @param string[] $accept
-     * @return array
-     */
-    public function selectHeadersForMultipart($accept)
-    {
-        $headers = $this->selectHeaders($accept, []);
-
-        unset($headers['Content-Type']);
         return $headers;
     }
 
@@ -105,4 +105,3 @@ class HeaderSelector
         }
     }
 }
-

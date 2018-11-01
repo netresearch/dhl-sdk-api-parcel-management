@@ -40,8 +40,8 @@ class ObjectSerializer
     /**
      * Serialize data
      *
-     * @param mixed  $data   the data to serialize
-     * @param string $type   the SwaggerType of the data
+     * @param mixed $data the data to serialize
+     * @param string $type the SwaggerType of the data
      * @param string $format the format of the Swagger type of the data
      *
      * @return string|object serialized form of $data
@@ -56,6 +56,7 @@ class ObjectSerializer
             foreach ($data as $property => $value) {
                 $data[$property] = self::sanitizeForSerialization($value);
             }
+
             return $data;
         } elseif (is_object($data)) {
             $values = [];
@@ -64,36 +65,44 @@ class ObjectSerializer
                 $getter = $data::getters()[$property];
                 $value = $data->$getter();
                 if ($value !== null
-                    && !in_array($swaggerType, ['DateTime', 'bool', 'boolean', 'byte', 'double', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], true)
+                    && !in_array(
+                        $swaggerType,
+                        [
+                            'DateTime',
+                            'bool',
+                            'boolean',
+                            'byte',
+                            'double',
+                            'float',
+                            'int',
+                            'integer',
+                            'mixed',
+                            'number',
+                            'object',
+                            'string',
+                            'void',
+                        ],
+                        true
+                    )
                     && method_exists($swaggerType, 'getAllowableEnumValues')
                     && !in_array($value, $swaggerType::getAllowableEnumValues())) {
                     $imploded = implode("', '", $swaggerType::getAllowableEnumValues());
-                    throw new \InvalidArgumentException("Invalid value for enum '$swaggerType', must be one of: '$imploded'");
+                    throw new \InvalidArgumentException(
+                        "Invalid value for enum '$swaggerType', must be one of: '$imploded'"
+                    );
                 }
                 if ($value !== null) {
-                    $values[$data::attributeMap()[$property]] = self::sanitizeForSerialization($value, $swaggerType, $formats[$property]);
+                    $values[$data::attributeMap()[$property]] = self::sanitizeForSerialization(
+                        $value,
+                        $swaggerType,
+                        $formats[$property]
+                    );
                 }
             }
+
             return (object)$values;
         } else {
             return (string)$data;
-        }
-    }
-
-    /**
-     * Sanitize filename by removing path.
-     * e.g. ../../sun.gif becomes sun.gif
-     *
-     * @param string $filename filename to be sanitized
-     *
-     * @return string the sanitized filename
-     */
-    public static function sanitizeFilename($filename)
-    {
-        if (preg_match("/.*[\/\\\\](.*)$/", $filename, $match)) {
-            return $match[1];
-        } else {
-            return $filename;
         }
     }
 
@@ -108,6 +117,24 @@ class ObjectSerializer
     public static function toPathValue($value)
     {
         return rawurlencode(self::toString($value));
+    }
+
+    /**
+     * Take value and turn it into a string suitable for inclusion in
+     * the parameter. If it's a string, pass through unchanged
+     * If it's a datetime object, format it in ISO8601
+     *
+     * @param string|\DateTime $value the value of the parameter
+     *
+     * @return string the header string
+     */
+    public static function toString($value)
+    {
+        if ($value instanceof \DateTime) { // datetime in ISO8601 format
+            return $value->format(\DateTime::ATOM);
+        } else {
+            return $value;
+        }
     }
 
     /**
@@ -162,35 +189,20 @@ class ObjectSerializer
     }
 
     /**
-     * Take value and turn it into a string suitable for inclusion in
-     * the parameter. If it's a string, pass through unchanged
-     * If it's a datetime object, format it in ISO8601
-     *
-     * @param string|\DateTime $value the value of the parameter
-     *
-     * @return string the header string
-     */
-    public static function toString($value)
-    {
-        if ($value instanceof \DateTime) { // datetime in ISO8601 format
-            return $value->format(\DateTime::ATOM);
-        } else {
-            return $value;
-        }
-    }
-
-    /**
      * Serialize an array to a string.
      *
-     * @param array  $collection                 collection to serialize to a string
-     * @param string $collectionFormat           the format use for serialization (csv,
+     * @param array $collection collection to serialize to a string
+     * @param string $collectionFormat the format use for serialization (csv,
      * ssv, tsv, pipes, multi)
-     * @param bool   $allowCollectionFormatMulti allow collection format to be a multidimensional array
+     * @param bool $allowCollectionFormatMulti allow collection format to be a multidimensional array
      *
      * @return string
      */
-    public static function serializeCollection(array $collection, $collectionFormat, $allowCollectionFormatMulti = false)
-    {
+    public static function serializeCollection(
+        array $collection,
+        $collectionFormat,
+        $allowCollectionFormatMulti = false
+    ) {
         if ($allowCollectionFormatMulti && ('multi' === $collectionFormat)) {
             // http_build_query() almost does the job for us. We just
             // need to fix the result of multidimensional arrays.
@@ -216,10 +228,10 @@ class ObjectSerializer
     /**
      * Deserialize a JSON string into an object
      *
-     * @param mixed    $data          object or primitive to be deserialized
-     * @param string   $class         class name is passed as a string
-     * @param string[] $httpHeaders   HTTP headers
-     * @param string   $discriminator discriminator if polymorphism is used
+     * @param mixed $data object or primitive to be deserialized
+     * @param string $class class name is passed as a string
+     * @param string[] $httpHeaders HTTP headers
+     * @param string $discriminator discriminator if polymorphism is used
      *
      * @return object|array|null an single or an array of $class instances
      */
@@ -237,6 +249,7 @@ class ObjectSerializer
                     $deserialized[$key] = self::deserialize($value, $subClass, null);
                 }
             }
+
             return $deserialized;
         } elseif (strcasecmp(substr($class, -2), '[]') === 0) {
             $subClass = substr($class, 0, -2);
@@ -244,9 +257,11 @@ class ObjectSerializer
             foreach ($data as $key => $value) {
                 $values[] = self::deserialize($value, $subClass, null);
             }
+
             return $values;
         } elseif ($class === 'object') {
             settype($data, 'array');
+
             return $data;
         } elseif ($class === '\DateTime') {
             // Some API's return an invalid, empty string as a
@@ -260,16 +275,40 @@ class ObjectSerializer
             } else {
                 return null;
             }
-        } elseif (in_array($class, ['DateTime', 'bool', 'boolean', 'byte', 'double', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], true)) {
+        } elseif (in_array(
+            $class,
+            [
+                'DateTime',
+                'bool',
+                'boolean',
+                'byte',
+                'double',
+                'float',
+                'int',
+                'integer',
+                'mixed',
+                'number',
+                'object',
+                'string',
+                'void',
+            ],
+            true
+        )) {
             settype($data, $class);
+
             return $data;
         } elseif ($class === '\SplFileObject') {
             /** @var \Psr\Http\Message\StreamInterface $data */
 
             // determine file name
             if (array_key_exists('Content-Disposition', $httpHeaders) &&
-                preg_match('/inline; filename=[\'"]?([^\'"\s]+)[\'"]?$/i', $httpHeaders['Content-Disposition'], $match)) {
-                $filename = Configuration::getDefaultConfiguration()->getTempFolderPath() . DIRECTORY_SEPARATOR . self::sanitizeFilename($match[1]);
+                preg_match(
+                    '/inline; filename=[\'"]?([^\'"\s]+)[\'"]?$/i',
+                    $httpHeaders['Content-Disposition'],
+                    $match
+                )) {
+                $filename = Configuration::getDefaultConfiguration()->getTempFolderPath(
+                ) . DIRECTORY_SEPARATOR . self::sanitizeFilename($match[1]);
             } else {
                 $filename = tempnam(Configuration::getDefaultConfiguration()->getTempFolderPath(), '');
             }
@@ -286,6 +325,7 @@ class ObjectSerializer
                 $imploded = implode("', '", $class::getAllowableEnumValues());
                 throw new \InvalidArgumentException("Invalid value for enum '$class', must be one of: '$imploded'");
             }
+
             return $data;
         } else {
             // If a discriminator is defined and points to a valid subclass, use it.
@@ -309,7 +349,25 @@ class ObjectSerializer
                     $instance->$propertySetter(self::deserialize($propertyValue, $type, null));
                 }
             }
+
             return $instance;
+        }
+    }
+
+    /**
+     * Sanitize filename by removing path.
+     * e.g. ../../sun.gif becomes sun.gif
+     *
+     * @param string $filename filename to be sanitized
+     *
+     * @return string the sanitized filename
+     */
+    public static function sanitizeFilename($filename)
+    {
+        if (preg_match("/.*[\/\\\\](.*)$/", $filename, $match)) {
+            return $match[1];
+        } else {
+            return $filename;
         }
     }
 }

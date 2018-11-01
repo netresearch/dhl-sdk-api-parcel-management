@@ -27,14 +27,18 @@
 
 namespace Dhl\ParcelManagement\Model;
 
-use \ArrayAccess;
-use \Dhl\ParcelManagement\ObjectSerializer;
+use ArrayAccess;
+use Dhl\ParcelManagement\ObjectSerializer;
 
 /**
  * SameDayTimeframe Class Doc Comment
  *
  * @category Class
- * @description A time interval &#x60;[start,end]&#x60;, i.e., beginning at &#x60;start&#x60; and ending at &#x60;end&#x60; independent to an actual date. Each timeframe has an individual code which is given in &#x60;code&#x60;. Additionally, the Densely Populated Area (DPA) identifier and name is given. Both are required to check for availability in the contracts with DHL. The &#x60;&#x60;deliveryBaseId&#x60;&#x60; denotes the Delivery Base which has to be used by the sender to enable same day delivery.
+ * @description A time interval &#x60;[start,end]&#x60;, i.e., beginning at &#x60;start&#x60; and ending at
+ *     &#x60;end&#x60; independent to an actual date. Each timeframe has an individual code which is given in
+ *     &#x60;code&#x60;. Additionally, the Densely Populated Area (DPA) identifier and name is given. Both are required
+ *     to check for availability in the contracts with DHL. The &#x60;&#x60;deliveryBaseId&#x60;&#x60; denotes the
+ *     Delivery Base which has to be used by the sender to enable same day delivery.
  * @package  Dhl\ParcelManagement
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
@@ -44,39 +48,105 @@ class SameDayTimeframe implements ModelInterface, ArrayAccess
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $swaggerModelName = 'SameDayTimeframe';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization
+     *
+     * @var string[]
+     */
     protected static $swaggerTypes = [
         'start' => 'string',
         'end' => 'string',
         'code' => 'string',
         'denselyPopulatedAreaId' => 'string',
         'denselyPopulatedAreaName' => 'string',
-        'deliveryBaseId' => 'string'
+        'deliveryBaseId' => 'string',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization
+     *
+     * @var string[]
+     */
     protected static $swaggerFormats = [
         'start' => 'time',
         'end' => 'time',
         'code' => null,
         'denselyPopulatedAreaId' => null,
         'denselyPopulatedAreaName' => null,
-        'deliveryBaseId' => null
+        'deliveryBaseId' => null,
     ];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
+     *
+     * @var string[]
+     */
+    protected static $attributeMap = [
+        'start' => 'start',
+        'end' => 'end',
+        'code' => 'code',
+        'denselyPopulatedAreaId' => 'DenselyPopulatedAreaId',
+        'denselyPopulatedAreaName' => 'DenselyPopulatedAreaName',
+        'deliveryBaseId' => 'deliveryBaseId',
+    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @var string[]
+     */
+    protected static $setters = [
+        'start' => 'setStart',
+        'end' => 'setEnd',
+        'code' => 'setCode',
+        'denselyPopulatedAreaId' => 'setDenselyPopulatedAreaId',
+        'denselyPopulatedAreaName' => 'setDenselyPopulatedAreaName',
+        'deliveryBaseId' => 'setDeliveryBaseId',
+    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @var string[]
+     */
+    protected static $getters = [
+        'start' => 'getStart',
+        'end' => 'getEnd',
+        'code' => 'getCode',
+        'denselyPopulatedAreaId' => 'getDenselyPopulatedAreaId',
+        'denselyPopulatedAreaName' => 'getDenselyPopulatedAreaName',
+        'deliveryBaseId' => 'getDeliveryBaseId',
+    ];
+
+    /**
+     * Associative array for storing property values
+     *
+     * @var mixed[]
+     */
+    protected $container = [];
+
+    /**
+     * Constructor
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['start'] = isset($data['start']) ? $data['start'] : null;
+        $this->container['end'] = isset($data['end']) ? $data['end'] : null;
+        $this->container['code'] = isset($data['code']) ? $data['code'] : null;
+        $this->container['denselyPopulatedAreaId'] = isset($data['denselyPopulatedAreaId']) ? $data['denselyPopulatedAreaId'] : null;
+        $this->container['denselyPopulatedAreaName'] = isset($data['denselyPopulatedAreaName']) ? $data['denselyPopulatedAreaName'] : null;
+        $this->container['deliveryBaseId'] = isset($data['deliveryBaseId']) ? $data['deliveryBaseId'] : null;
+    }
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -97,49 +167,6 @@ class SameDayTimeframe implements ModelInterface, ArrayAccess
     {
         return self::$swaggerFormats;
     }
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static $attributeMap = [
-        'start' => 'start',
-        'end' => 'end',
-        'code' => 'code',
-        'denselyPopulatedAreaId' => 'DenselyPopulatedAreaId',
-        'denselyPopulatedAreaName' => 'DenselyPopulatedAreaName',
-        'deliveryBaseId' => 'deliveryBaseId'
-    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static $setters = [
-        'start' => 'setStart',
-        'end' => 'setEnd',
-        'code' => 'setCode',
-        'denselyPopulatedAreaId' => 'setDenselyPopulatedAreaId',
-        'denselyPopulatedAreaName' => 'setDenselyPopulatedAreaName',
-        'deliveryBaseId' => 'setDeliveryBaseId'
-    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static $getters = [
-        'start' => 'getStart',
-        'end' => 'getEnd',
-        'code' => 'getCode',
-        'denselyPopulatedAreaId' => 'getDenselyPopulatedAreaId',
-        'denselyPopulatedAreaName' => 'getDenselyPopulatedAreaName',
-        'deliveryBaseId' => 'getDeliveryBaseId'
-    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -182,31 +209,15 @@ class SameDayTimeframe implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    
-
     /**
-     * Associative array for storing property values
+     * Validate all the properties in the model
+     * return true if all passed
      *
-     * @var mixed[]
+     * @return bool True if all properties are valid
      */
-    protected $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
+    public function valid()
     {
-        $this->container['start'] = isset($data['start']) ? $data['start'] : null;
-        $this->container['end'] = isset($data['end']) ? $data['end'] : null;
-        $this->container['code'] = isset($data['code']) ? $data['code'] : null;
-        $this->container['denselyPopulatedAreaId'] = isset($data['denselyPopulatedAreaId']) ? $data['denselyPopulatedAreaId'] : null;
-        $this->container['denselyPopulatedAreaName'] = isset($data['denselyPopulatedAreaName']) ? $data['denselyPopulatedAreaName'] : null;
-        $this->container['deliveryBaseId'] = isset($data['deliveryBaseId']) ? $data['deliveryBaseId'] : null;
+        return count($this->listInvalidProperties()) === 0;
     }
 
     /**
@@ -236,20 +247,9 @@ class SameDayTimeframe implements ModelInterface, ArrayAccess
         if ($this->container['deliveryBaseId'] === null) {
             $invalidProperties[] = "'deliveryBaseId' can't be null";
         }
+
         return $invalidProperties;
     }
-
-    /**
-     * Validate all the properties in the model
-     * return true if all passed
-     *
-     * @return bool True if all properties are valid
-     */
-    public function valid()
-    {
-        return count($this->listInvalidProperties()) === 0;
-    }
-
 
     /**
      * Gets start
@@ -394,6 +394,7 @@ class SameDayTimeframe implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -422,7 +423,7 @@ class SameDayTimeframe implements ModelInterface, ArrayAccess
      * Sets value based on offset.
      *
      * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param mixed $value Value to be set
      *
      * @return void
      */
@@ -464,5 +465,3 @@ class SameDayTimeframe implements ModelInterface, ArrayAccess
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
-
-

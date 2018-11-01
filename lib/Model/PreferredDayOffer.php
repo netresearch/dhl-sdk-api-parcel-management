@@ -27,14 +27,15 @@
 
 namespace Dhl\ParcelManagement\Model;
 
-use \ArrayAccess;
-use \Dhl\ParcelManagement\ObjectSerializer;
+use ArrayAccess;
+use Dhl\ParcelManagement\ObjectSerializer;
 
 /**
  * PreferredDayOffer Class Doc Comment
  *
  * @category Class
- * @description Offer for rescheduling the delivery of the shipment to another day, which is restricted to certain &#x60;validDays&#x60;
+ * @description Offer for rescheduling the delivery of the shipment to another day, which is restricted to certain
+ *     &#x60;validDays&#x60;
  * @package  Dhl\ParcelManagement
  * @author   Swagger Codegen team
  * @link     https://github.com/swagger-api/swagger-codegen
@@ -44,31 +45,81 @@ class PreferredDayOffer implements ModelInterface, ArrayAccess
     const DISCRIMINATOR = null;
 
     /**
-      * The original name of the model.
-      *
-      * @var string
-      */
+     * The original name of the model.
+     *
+     * @var string
+     */
     protected static $swaggerModelName = 'PreferredDayOffer';
 
     /**
-      * Array of property to type mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to type mappings. Used for (de)serialization
+     *
+     * @var string[]
+     */
     protected static $swaggerTypes = [
         'commitmentEndPeriod' => '\DateTime',
-        'validDays' => '\Dhl\ParcelManagement\Model\TimeInterval[]'
+        'validDays' => '\Dhl\ParcelManagement\Model\TimeInterval[]',
     ];
 
     /**
-      * Array of property to format mappings. Used for (de)serialization
-      *
-      * @var string[]
-      */
+     * Array of property to format mappings. Used for (de)serialization
+     *
+     * @var string[]
+     */
     protected static $swaggerFormats = [
         'commitmentEndPeriod' => 'date-time',
-        'validDays' => null
+        'validDays' => null,
     ];
+
+    /**
+     * Array of attributes where the key is the local name,
+     * and the value is the original name
+     *
+     * @var string[]
+     */
+    protected static $attributeMap = [
+        'commitmentEndPeriod' => 'commitmentEndPeriod',
+        'validDays' => 'validDays',
+    ];
+
+    /**
+     * Array of attributes to setter functions (for deserialization of responses)
+     *
+     * @var string[]
+     */
+    protected static $setters = [
+        'commitmentEndPeriod' => 'setCommitmentEndPeriod',
+        'validDays' => 'setValidDays',
+    ];
+
+    /**
+     * Array of attributes to getter functions (for serialization of requests)
+     *
+     * @var string[]
+     */
+    protected static $getters = [
+        'commitmentEndPeriod' => 'getCommitmentEndPeriod',
+        'validDays' => 'getValidDays',
+    ];
+
+    /**
+     * Associative array for storing property values
+     *
+     * @var mixed[]
+     */
+    protected $container = [];
+
+    /**
+     * Constructor
+     *
+     * @param mixed[] $data Associated array of property values
+     *                      initializing the model
+     */
+    public function __construct(array $data = null)
+    {
+        $this->container['commitmentEndPeriod'] = isset($data['commitmentEndPeriod']) ? $data['commitmentEndPeriod'] : null;
+        $this->container['validDays'] = isset($data['validDays']) ? $data['validDays'] : null;
+    }
 
     /**
      * Array of property to type mappings. Used for (de)serialization
@@ -89,37 +140,6 @@ class PreferredDayOffer implements ModelInterface, ArrayAccess
     {
         return self::$swaggerFormats;
     }
-
-    /**
-     * Array of attributes where the key is the local name,
-     * and the value is the original name
-     *
-     * @var string[]
-     */
-    protected static $attributeMap = [
-        'commitmentEndPeriod' => 'commitmentEndPeriod',
-        'validDays' => 'validDays'
-    ];
-
-    /**
-     * Array of attributes to setter functions (for deserialization of responses)
-     *
-     * @var string[]
-     */
-    protected static $setters = [
-        'commitmentEndPeriod' => 'setCommitmentEndPeriod',
-        'validDays' => 'setValidDays'
-    ];
-
-    /**
-     * Array of attributes to getter functions (for serialization of requests)
-     *
-     * @var string[]
-     */
-    protected static $getters = [
-        'commitmentEndPeriod' => 'getCommitmentEndPeriod',
-        'validDays' => 'getValidDays'
-    ];
 
     /**
      * Array of attributes where the key is the local name,
@@ -162,27 +182,15 @@ class PreferredDayOffer implements ModelInterface, ArrayAccess
         return self::$swaggerModelName;
     }
 
-    
-
-    
-
     /**
-     * Associative array for storing property values
+     * Validate all the properties in the model
+     * return true if all passed
      *
-     * @var mixed[]
+     * @return bool True if all properties are valid
      */
-    protected $container = [];
-
-    /**
-     * Constructor
-     *
-     * @param mixed[] $data Associated array of property values
-     *                      initializing the model
-     */
-    public function __construct(array $data = null)
+    public function valid()
     {
-        $this->container['commitmentEndPeriod'] = isset($data['commitmentEndPeriod']) ? $data['commitmentEndPeriod'] : null;
-        $this->container['validDays'] = isset($data['validDays']) ? $data['validDays'] : null;
+        return count($this->listInvalidProperties()) === 0;
     }
 
     /**
@@ -200,20 +208,9 @@ class PreferredDayOffer implements ModelInterface, ArrayAccess
         if ($this->container['validDays'] === null) {
             $invalidProperties[] = "'validDays' can't be null";
         }
+
         return $invalidProperties;
     }
-
-    /**
-     * Validate all the properties in the model
-     * return true if all passed
-     *
-     * @return bool True if all properties are valid
-     */
-    public function valid()
-    {
-        return count($this->listInvalidProperties()) === 0;
-    }
-
 
     /**
      * Gets commitmentEndPeriod
@@ -228,7 +225,11 @@ class PreferredDayOffer implements ModelInterface, ArrayAccess
     /**
      * Sets commitmentEndPeriod
      *
-     * @param \DateTime $commitmentEndPeriod An `date-time` formatted according to [RFC3339](http://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14) that indicates the commitment period end of the offer. The commitment end period is computed individually for each offer. This computation is based on highly dynamic DHL logistics business rules and thus cannot be precomputed on the client side. The `commitmentEndPeriod` might be prolonged for a certain offer but  is never reduced.
+     * @param \DateTime $commitmentEndPeriod An `date-time` formatted according to
+     *     [RFC3339](http://xml2rfc.ietf.org/public/rfc/html/rfc3339.html#anchor14) that indicates the commitment
+     *     period end of the offer. The commitment end period is computed individually for each offer. This computation
+     *     is based on highly dynamic DHL logistics business rules and thus cannot be precomputed on the client side.
+     *     The `commitmentEndPeriod` might be prolonged for a certain offer but  is never reduced.
      *
      * @return $this
      */
@@ -252,7 +253,8 @@ class PreferredDayOffer implements ModelInterface, ArrayAccess
     /**
      * Sets validDays
      *
-     * @param \Dhl\ParcelManagement\Model\TimeInterval[] $validDays List of current valid preferred days of a given shipment.
+     * @param \Dhl\ParcelManagement\Model\TimeInterval[] $validDays List of current valid preferred days of a given
+     *     shipment.
      *
      * @return $this
      */
@@ -262,6 +264,7 @@ class PreferredDayOffer implements ModelInterface, ArrayAccess
 
         return $this;
     }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
@@ -290,7 +293,7 @@ class PreferredDayOffer implements ModelInterface, ArrayAccess
      * Sets value based on offset.
      *
      * @param integer $offset Offset
-     * @param mixed   $value  Value to be set
+     * @param mixed $value Value to be set
      *
      * @return void
      */
@@ -332,5 +335,3 @@ class PreferredDayOffer implements ModelInterface, ArrayAccess
         return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
-
-
