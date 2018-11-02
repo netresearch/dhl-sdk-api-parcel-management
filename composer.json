@@ -1,18 +1,18 @@
 {
   "name": "dhl/sdk-api-parcel-management",
-  "description": "",
+  "description": "SDK for calling DHLs parcel management service API",
   "keywords": [
     "swagger",
     "php",
     "sdk",
     "api"
   ],
-  "homepage": "http://swagger.io",
-  "license": "proprietary",
+  "license": "MIT",
   "authors": [
     {
-      "name": "Swagger and contributors",
-      "homepage": "https://github.com/swagger-api/swagger-codegen"
+      "name": "Sebastian Ertner",
+      "email": "sebastian.ertner@netresearch.de",
+      "homepage": "https://www.netresearch.de/"
     }
   ],
   "require": {
@@ -30,11 +30,6 @@
   "autoload": {
     "psr-4": {
       "Dhl\\ParcelManagement\\": "lib/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Dhl\\ParcelManagement\\": "test/"
     }
   }
 }
