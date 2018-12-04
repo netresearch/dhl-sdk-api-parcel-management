@@ -13,19 +13,30 @@
       "name": "Sebastian Ertner",
       "email": "sebastian.ertner@netresearch.de",
       "homepage": "https://www.netresearch.de/"
+    },
+    {
+      "name": "Max Melzer",
+      "email": "max.melzer@netresearch.de",
+      "homepage": "https://www.netresearch.de/"
     }
   ],
   "require": {
-    "php": ">=5.5",
+    "php": "^7.0.0",
     "ext-curl": "*",
     "ext-json": "*",
     "ext-mbstring": "*",
-    "guzzlehttp/guzzle": "^6.2"
+    "psr/http-message": "^1.0",
+    "php-http/client-implementation": "^1.0",
+    "php-http/httplug": "^1.0",
+    "php-http/message-factory": "^1.0",
+    "php-http/discovery": "^1.0",
+    "psr/log": "^1.1",
+    "php-http/logger-plugin": "^1.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^4.8",
-    "squizlabs/php_codesniffer": "~2.6",
-    "friendsofphp/php-cs-fixer": "~1.12"
+    "phpunit/phpunit": "^6.0.0",
+    "guzzlehttp/psr7": "^1.0",
+    "php-http/mock-client": "^1.0"
   },
   "autoload": {
     "psr-4": {

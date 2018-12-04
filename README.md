@@ -75,6 +75,7 @@ see: https://entwickler.dhl.de/en/group/ep/wsapis/paketsteuerung-
 Author
 ------
 * Sebastian Ertner | [Netresearch GmbH & Co. KG](http://www.netresearch.de/)
+* Max Melzer | [Netresearch GmbH & Co. KG](http://www.netresearch.de/)
 
 License
 -------
