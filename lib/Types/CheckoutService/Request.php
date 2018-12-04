@@ -13,7 +13,7 @@ use Zend\Stdlib\JsonSerializable;
  *
  * @package Dhl\ParcelManagement\Types
  */
-class Request implements JsonSerializable
+class Request
 {
     /**
      * @var string
@@ -23,7 +23,7 @@ class Request implements JsonSerializable
     /**
      * @var string
      */
-    private $startDate;
+    public $startDate;
 
     /**
      * Request constructor.
@@ -43,22 +43,5 @@ class Request implements JsonSerializable
     public function getRecipientZip(): string
     {
         return $this->recipientZip;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStartDate(): string
-    {
-        return $this->startDate;
-    }
-
-    /**
-     * @return string
-     */
-    public function jsonSerialize(): string
-    {
-        // TODO: Implement jsonSerialize() method.
-        return '';
     }
 }

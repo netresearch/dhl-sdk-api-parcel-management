@@ -9,6 +9,7 @@ namespace Dhl\ParcelManagement\Webservice\Adapter;
 use Dhl\ParcelManagement\Types\CheckoutService\Request;
 use Dhl\ParcelManagement\Types\CheckoutService\Response;
 use Http\Client\HttpClient;
+use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\RequestFactory;
 use http\Url;
 
@@ -57,15 +58,13 @@ class CheckoutServiceApiAdapter
      */
     public function getCheckoutServices(Request $getServicesRequest): Response
     {
-        // @TODO use $getServicesRequest as get url parameters
-        $url = $this->baseUrl . self::RESOURCE;
-        $url = str_replace('{recipientZip}', $getServicesRequest->getRecipientZip(), $url);
+        $uri = $this->baseUrl . self::RESOURCE;
+        $uri = str_replace('{recipientZip}', $getServicesRequest->getRecipientZip(), $uri);
+        $uri .= '?' . http_build_query((array)$getServicesRequest);
 
         $request = $this->requestFactory->createRequest(
             'GET',
-            $url,
-            [],
-            json_encode($getServicesRequest)
+            $uri
         );
         $response = $this->client->sendRequest($request);
 
