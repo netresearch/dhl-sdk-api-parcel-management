@@ -7,6 +7,7 @@ declare(strict_types=1);
 namespace Dhl\ParcelManagement\Webservice;
 
 use Dhl\ParcelManagement\Api\ServiceFactoryInterface;
+use Dhl\ParcelManagement\Webservice\Adapter\CheckoutServiceApiAdapter;
 use Http\Client\Common\Plugin\AuthenticationPlugin;
 use Http\Client\Common\Plugin\ErrorPlugin;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
@@ -37,12 +38,12 @@ class ServiceFactory implements ServiceFactoryInterface
      * @throws NotFoundException
      */
     public function createCheckoutService(
-        $appId,
-        $appToken,
-        $ekp,
+        string $appId,
+        string $appToken,
+        string $ekp,
         LoggerInterface $logger,
-        HttpClient $client = null,
-        $baseUrl = self::BASE_URL
+        string $baseUrl = self::BASE_URL_SANDBOX,
+        HttpClient $client = null
     ): CheckoutService {
         $client = $this->getClient($client);
 

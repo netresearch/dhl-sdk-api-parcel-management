@@ -6,7 +6,7 @@ declare(strict_types=1);
 
 namespace Dhl\ParcelManagement\Webservice;
 
-use Dhl\ParcelManagement\Types\CheckoutService\Request;
+use Dhl\ParcelManagement\Exception\ApiException;
 use Dhl\ParcelManagement\Types\CheckoutService\Response;
 use Dhl\ParcelManagement\Webservice\Adapter\CheckoutServiceApiAdapter;
 
@@ -33,12 +33,13 @@ class CheckoutService
     }
 
     /**
-     * @param Request $request
+     * @param string $recipientZip
+     * @param string $startDate
      * @return Response
-     * @throws \Http\Client\Exception
+     * @throws ApiException
      */
-    public function performRequest(Request $request): Response
+    public function performRequest(string $recipientZip, string $startDate): Response
     {
-        return $this->adapter->getCheckoutServices($request);
+        return $this->adapter->getCheckoutServices($recipientZip, $startDate);
     }
 }

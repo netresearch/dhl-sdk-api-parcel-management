@@ -6,12 +6,11 @@ declare(strict_types=1);
 
 namespace Dhl\ParcelManagement\Webservice\Adapter;
 
-use Dhl\ParcelManagement\Types\CheckoutService\Request;
+use Dhl\ParcelManagement\Exception\ApiException;
 use Dhl\ParcelManagement\Types\CheckoutService\Response;
+use Dhl\ParcelManagement\Webservice\CheckoutService\ResponseMapper;
 use Http\Client\HttpClient;
-use Http\Discovery\UriFactoryDiscovery;
 use Http\Message\RequestFactory;
-use http\Url;
 
 /**
  * Class CheckoutServiceApiAdapter
@@ -20,7 +19,7 @@ use http\Url;
  */
 class CheckoutServiceApiAdapter
 {
-    const RESOURCE = '/checkout/{recipientZip}/availableServices';
+    const RESOURCE = 'checkout/{recipientZip}/availableServices';
 
     /**
      * @var string
@@ -52,25 +51,42 @@ class CheckoutServiceApiAdapter
     }
 
     /**
-     * @param Request $getServicesRequest
+     * @param string $recipientZip
+     * @param string $startDate
      * @return Response
-     * @throws \Http\Client\Exception
+     * @throws ApiException
      */
-    public function getCheckoutServices(Request $getServicesRequest): Response
+    public function getCheckoutServices(string $recipientZip, string $startDate): Response
+    {
+        $request = $this->requestFactory->createRequest('GET', $this->compileUri($recipientZip, $startDate));
+        try {
+            $response = $this->client->sendRequest($request);
+        } catch (\Http\Client\Exception $exception) {
+            throw new ApiException($exception->getMessage());
+        } catch (\Exception $exception) {
+            throw new ApiException($exception->getMessage());
+        }
+
+        try {
+            $mappedResponse = (new ResponseMapper())->map($response);
+        } catch (\JsonMapper_Exception $exception) {
+            throw new ApiException($exception->getMessage());
+        }
+
+        return $mappedResponse;
+    }
+
+    /**
+     * @param string $recipientZip
+     * @param string $startDate
+     * @return string
+     */
+    private function compileUri(string $recipientZip, string $startDate): string
     {
         $uri = $this->baseUrl . self::RESOURCE;
-        $uri = str_replace('{recipientZip}', $getServicesRequest->getRecipientZip(), $uri);
-        $uri .= '?' . http_build_query((array)$getServicesRequest);
+        $uri = str_replace('{recipientZip}', $recipientZip, $uri);
+        $uri .= '?' . http_build_query(['startDate' => $startDate]);
 
-        $request = $this->requestFactory->createRequest(
-            'GET',
-            $uri
-        );
-        $response = $this->client->sendRequest($request);
-
-        // @TODO convert $response contents into PHP object
-        $createLabelResponse = new Response();
-
-        return $createLabelResponse;
+        return $uri;
     }
 }

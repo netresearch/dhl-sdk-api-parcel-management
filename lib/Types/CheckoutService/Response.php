@@ -6,6 +6,8 @@ declare(strict_types=1);
 
 namespace Dhl\ParcelManagement\Types\CheckoutService;
 
+use Dhl\ParcelManagement\Types\CheckoutService\Response\AvailableServicesMap;
+
 /**
  * Class Response
  *
@@ -13,5 +15,26 @@ namespace Dhl\ParcelManagement\Types\CheckoutService;
  */
 class Response
 {
+    /**
+     * @var AvailableServicesMap
+     */
+    private $availableServicesMap;
 
+    /**
+     * Response constructor.
+     *
+     * @param AvailableServicesMap $availableServicesMap
+     */
+    public function __construct(AvailableServicesMap $availableServicesMap)
+    {
+        $this->availableServicesMap = $availableServicesMap;
+    }
+
+    /**
+     * @return AvailableServicesMap
+     */
+    public function getAvailableServicesMap(): AvailableServicesMap
+    {
+        return $this->availableServicesMap;
+    }
 }

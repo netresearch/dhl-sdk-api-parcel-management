@@ -17,7 +17,8 @@ use Psr\Log\LoggerInterface;
  */
 interface ServiceFactoryInterface
 {
-    const BASE_URL = 'https://cig.dhl.de/services/production/rest/';
+    const BASE_URL_PRODUCTION = 'https://cig.dhl.de/services/production/rest/';
+    const BASE_URL_SANDBOX = 'https://cig.dhl.de/services/sandbox/rest/';
 
     const HEADER_X_EKP = 'X-EKP';
 
@@ -33,11 +34,11 @@ interface ServiceFactoryInterface
      * @return CheckoutService
      */
     public function createCheckoutService(
-        $appId,
-        $appToken,
-        $ekp,
+        string $appId,
+        string $appToken,
+        string $ekp,
         LoggerInterface $logger,
-        HttpClient $client = null,
-        $baseUrl = self::BASE_URL
+        string $baseUrl = self::BASE_URL_SANDBOX,
+        HttpClient $client = null
     ): CheckoutService;
 }
