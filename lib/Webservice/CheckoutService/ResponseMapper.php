@@ -26,7 +26,7 @@ class ResponseMapper
         $jsonMapper = new \JsonMapper();
         $jsonMapper->bIgnoreVisibility = true;
 
-        $jsonDatta = \json_decode($response->getBody()->getContents());
+        $jsonData = \json_decode($response->getBody()->getContents());
         $availableServicesMap = $jsonMapper->map($jsonData, new Response\AvailableServicesMap());
 
         return new Response($availableServicesMap);
