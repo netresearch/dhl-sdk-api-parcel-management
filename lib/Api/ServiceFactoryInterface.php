@@ -25,12 +25,12 @@ interface ServiceFactoryInterface
     /**
      * Creates the checkout service able to retrieve available checkout services
      *
-     * @param string $appId
-     * @param string $appToken
-     * @param string $ekp
-     * @param LoggerInterface $logger
-     * @param string $baseUrl
-     * @param HttpClient|null $client
+     * @param  string $appId
+     * @param  string $appToken
+     * @param  string $ekp
+     * @param  LoggerInterface $logger
+     * @param  string $baseUrl
+     * @param  HttpClient|null $client
      * @return CheckoutService
      */
     public function createCheckoutService(

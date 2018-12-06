@@ -48,7 +48,7 @@ $checkoutService = $serviceFactory->createCheckoutService(
 );
 
 try {
-    $response = $checkoutService->performRequest(
+    $response = $checkoutService->performAvailableServiceRequest(
         'recipientZip', // string | ZIP code of recipient.
         'startDate'     // string | Day in format "2018-12-31" when the shipment will be dropped off in the DHL parcel center
     );

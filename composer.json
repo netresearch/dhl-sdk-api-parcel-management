@@ -2,10 +2,10 @@
   "name": "dhl/sdk-api-parcel-management",
   "description": "SDK for calling DHLs parcel management service API",
   "keywords": [
-    "swagger",
     "php",
     "sdk",
-    "api"
+    "api",
+    "DHL"
   ],
   "license": "MIT",
   "authors": [
@@ -42,6 +42,16 @@
   "autoload": {
     "psr-4": {
       "Dhl\\ParcelManagement\\": "lib/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Dhl\\ParcelManagement\\Test\\": "test/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-DHLGW-171": "1.0.x-dev"
     }
   }
 }

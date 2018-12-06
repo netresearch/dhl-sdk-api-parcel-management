@@ -6,9 +6,6 @@ declare(strict_types=1);
 
 namespace Dhl\ParcelManagement\Webservice\CheckoutService;
 
-use Dhl\ParcelManagement\Types\CheckoutService\Response;
-use Psr\Http\Message\ResponseInterface;
-
 /**
  * Class ResponseMapper
  *
@@ -17,18 +14,18 @@ use Psr\Http\Message\ResponseInterface;
 class ResponseMapper
 {
     /**
-     * @param ResponseInterface $response
-     * @return Response
+     * @param $jsonString
+     * @param $className
+     * @return object
      * @throws \JsonMapper_Exception
      */
-    public function map(ResponseInterface $response): Response
+    public function map($jsonString, $className)
     {
         $jsonMapper = new \JsonMapper();
         $jsonMapper->bIgnoreVisibility = true;
 
-        $jsonData = \json_decode($response->getBody()->getContents());
-        $availableServicesMap = $jsonMapper->map($jsonData, new Response\AvailableServicesMap());
+        $jsonData = \json_decode($jsonString);
 
-        return new Response($availableServicesMap);
+        return $jsonMapper->map($jsonData, new $className());
     }
 }

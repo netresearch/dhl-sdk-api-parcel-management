@@ -28,12 +28,12 @@ use Psr\Log\LoggerInterface;
 class ServiceFactory implements ServiceFactoryInterface
 {
     /**
-     * @param string $appId
-     * @param string $appToken
-     * @param string $ekp
-     * @param LoggerInterface $logger
-     * @param HttpClient|null $client
-     * @param string $baseUrl
+     * @param  string $appId
+     * @param  string $appToken
+     * @param  string $ekp
+     * @param  LoggerInterface $logger
+     * @param  HttpClient|null $client
+     * @param  string $baseUrl
      * @return CheckoutService
      * @throws NotFoundException
      */
@@ -48,7 +48,7 @@ class ServiceFactory implements ServiceFactoryInterface
         $client = $this->getClient($client);
 
         $authentication = new BasicAuth($appId, $appToken);
-        
+
         $pluginClient = new PluginClient(
             $client,
             [
@@ -69,7 +69,7 @@ class ServiceFactory implements ServiceFactoryInterface
     }
 
     /**
-     * @param HttpClient|null $client
+     * @param  HttpClient|null $client
      * @return HttpClient
      * @throws NotFoundException
      */

@@ -6,9 +6,6 @@ declare(strict_types=1);
 
 namespace Dhl\ParcelManagement\Webservice\Adapter;
 
-use Dhl\ParcelManagement\Exception\ApiException;
-use Dhl\ParcelManagement\Types\CheckoutService\Response;
-use Dhl\ParcelManagement\Webservice\CheckoutService\ResponseMapper;
 use Http\Client\HttpClient;
 use Http\Message\RequestFactory;
 
@@ -51,34 +48,25 @@ class CheckoutServiceApiAdapter
     }
 
     /**
+     * Fetch available value added services for postcode and start date
+     *
      * @param string $recipientZip
      * @param string $startDate
-     * @return Response
-     * @throws ApiException
+     * @return string
+     * @throws \Http\Client\Exception
      */
-    public function getCheckoutServices(string $recipientZip, string $startDate): Response
+    public function getAvailableServices(string $recipientZip, string $startDate): string
     {
         $request = $this->requestFactory->createRequest('GET', $this->compileUri($recipientZip, $startDate));
-        try {
-            $response = $this->client->sendRequest($request);
-        } catch (\Http\Client\Exception $exception) {
-            throw new ApiException($exception->getMessage());
-        } catch (\Exception $exception) {
-            throw new ApiException($exception->getMessage());
-        }
 
-        try {
-            $mappedResponse = (new ResponseMapper())->map($response);
-        } catch (\JsonMapper_Exception $exception) {
-            throw new ApiException($exception->getMessage());
-        }
+        $response = $this->client->sendRequest($request);
 
-        return $mappedResponse;
+        return $response->getBody()->getContents();
     }
 
     /**
-     * @param string $recipientZip
-     * @param string $startDate
+     * @param  string $recipientZip
+     * @param  string $startDate
      * @return string
      */
     private function compileUri(string $recipientZip, string $startDate): string
