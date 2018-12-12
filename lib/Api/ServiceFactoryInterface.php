@@ -7,7 +7,7 @@ declare(strict_types=1);
 namespace Dhl\ParcelManagement\Api;
 
 use Dhl\ParcelManagement\Webservice\CheckoutService;
-use Http\Client\HttpClient;
+use Http\Discovery\Exception\NotFoundException;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -29,16 +29,16 @@ interface ServiceFactoryInterface
      * @param  string $appToken
      * @param  string $ekp
      * @param  LoggerInterface $logger
-     * @param  string $baseUrl
-     * @param  HttpClient|null $client
+     * @param  bool $isSandboxMode
      * @return CheckoutService
+     *
+     * @throws NotFoundException
      */
     public function createCheckoutService(
         string $appId,
         string $appToken,
         string $ekp,
         LoggerInterface $logger,
-        string $baseUrl = self::BASE_URL_SANDBOX,
-        HttpClient $client = null
+        bool $isSandboxMode
     ): CheckoutService;
 }
