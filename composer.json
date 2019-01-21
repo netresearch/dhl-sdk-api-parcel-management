@@ -41,7 +41,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Dhl\\ParcelManagement\\": "lib/"
+      "Dhl\\ParcelManagement\\": "src/"
     }
   },
   "autoload-dev": {
