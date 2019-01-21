@@ -1,6 +1,6 @@
 {
   "name": "dhl/sdk-api-parcel-management",
-  "description": "SDK for calling DHLs parcel management service API",
+  "description": "SDK for calling DHL's parcel management service API",
   "keywords": [
     "swagger",
     "php",
@@ -29,7 +29,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Dhl\\ParcelManagement\\": "lib/"
+      "Dhl\\ParcelManagement\\": "src/"
     }
   }
 }
