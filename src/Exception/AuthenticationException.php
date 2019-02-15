@@ -4,14 +4,16 @@
  */
 declare(strict_types=1);
 
-namespace Dhl\ParcelManagement\Exception;
+namespace Dhl\Sdk\Paket\ParcelManagement\Exception;
 
 /**
  * Class AuthenticationException
  *
- * @author Paul Siedler <paul.siedler@netresearch.de>
- * @link http://www.netresearch.de/
+ * @api
+ * @package Dhl\Sdk\Paket\ParcelManagement\Exception
+ * @author  Paul Siedler <paul.siedler@netresearch.de>
+ * @link    https://www.netresearch.de/
  */
-class AuthenticationException extends \Exception
+class AuthenticationException extends ServiceException
 {
 }

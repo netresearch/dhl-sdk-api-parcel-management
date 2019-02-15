@@ -1,57 +1,60 @@
 {
   "name": "dhl/sdk-api-parcel-management",
-  "description": "SDK for calling DHLs parcel management service API",
+  "description": "DHL Paket Parcel Management API SDK",
+  "license": "MIT",
   "keywords": [
     "php",
     "sdk",
-    "api",
     "DHL"
   ],
-  "license": "MIT",
+  "homepage": "https://entwickler.dhl.de/en/group/ep/wsapis/paketsteuerung-",
   "authors": [
     {
+      "name": "Christoph Aßmann",
+      "email": "christoph.assmann@netresearch.de"
+    },
+    {
       "name": "Sebastian Ertner",
-      "email": "sebastian.ertner@netresearch.de",
-      "homepage": "https://www.netresearch.de/"
+      "email": "sebastian.ertner@netresearch.de"
     },
     {
       "name": "Max Melzer",
-      "email": "max.melzer@netresearch.de",
-      "homepage": "https://www.netresearch.de/"
+      "email": "max.melzer@netresearch.de"
     }
   ],
   "require": {
     "php": "^7.0.0",
-    "ext-curl": "*",
     "ext-json": "*",
-    "ext-mbstring": "*",
-    "psr/http-message": "^1.0",
-    "php-http/client-implementation": "^1.0",
-    "php-http/httplug": "^1.0",
-    "php-http/message-factory": "^1.0",
-    "php-http/discovery": "^1.0",
-    "psr/log": "^1.1",
-    "php-http/logger-plugin": "^1.0",
-    "netresearch/jsonmapper": "^1.4.0"
+    "netresearch/jsonmapper": "^1.4.0",
+    "php-http/client-implementation": "^1.0.0",
+    "php-http/discovery": "^1.0.0",
+    "php-http/httplug": "^1.0.0",
+    "php-http/logger-plugin": "^1.0.0",
+    "php-http/message": "^1.0.0",
+    "php-http/message-factory": "^1.0.0",
+    "php-http/message-factory-implementation": "^1.0.0",
+    "psr/http-message": "^1.0.0",
+    "psr/http-message-implementation": "^1.0.0",
+    "psr/log": "^1.1.0"
   },
   "require-dev": {
+    "guzzlehttp/psr7": "^1.5.0",
     "phpunit/phpunit": "^6.0.0",
-    "guzzlehttp/psr7": "^1.0",
-    "php-http/mock-client": "^1.0"
+    "php-http/mock-client": "^1.0.0"
   },
   "autoload": {
     "psr-4": {
-      "Dhl\\ParcelManagement\\": "src/"
+      "Dhl\\Sdk\\Paket\\ParcelManagement\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Dhl\\ParcelManagement\\Test\\": "test/"
+      "Dhl\\Sdk\\Paket\\ParcelManagement\\Test\\": "test/"
     }
   },
   "extra": {
     "branch-alias": {
-      "dev-develop": "1.0.x-dev"
+      "dev-develop": "1.0.0-dev"
     }
   }
 }

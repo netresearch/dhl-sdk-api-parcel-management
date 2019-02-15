@@ -4,16 +4,19 @@
  */
 declare(strict_types=1);
 
-namespace Dhl\ParcelManagement\Api;
+namespace Dhl\Sdk\Paket\ParcelManagement\Api;
 
-use Dhl\ParcelManagement\Webservice\CheckoutService;
+use Dhl\Sdk\Paket\ParcelManagement\Service\CheckoutService;
 use Http\Discovery\Exception\NotFoundException;
 use Psr\Log\LoggerInterface;
 
 /**
  * Interface ServiceFactoryInterface
  *
- * @package Dhl\ParcelManagement\Api
+ * @api
+ * @package Dhl\Sdk\Paket\ParcelManagement\Api
+ * @author  Paul Siedler <paul.siedler@netresearch.de>
+ * @link    https://www.netresearch.de/
  */
 interface ServiceFactoryInterface
 {
@@ -23,13 +26,13 @@ interface ServiceFactoryInterface
     const HEADER_X_EKP = 'X-EKP';
 
     /**
-     * Creates the checkout service able to retrieve available checkout services
+     * Create the checkout service to retrieve applicable services and estimated delivery dates during checkout.
      *
-     * @param  string $appId
-     * @param  string $appToken
-     * @param  string $ekp
-     * @param  LoggerInterface $logger
-     * @param  bool $isSandboxMode
+     * @param string $appId
+     * @param string $appToken
+     * @param string $ekp
+     * @param LoggerInterface $logger
+     * @param bool $sandboxMode
      * @return CheckoutService
      *
      * @throws NotFoundException
@@ -39,6 +42,6 @@ interface ServiceFactoryInterface
         string $appToken,
         string $ekp,
         LoggerInterface $logger,
-        bool $isSandboxMode
-    ): CheckoutService;
+        bool $sandboxMode = false
+    ): CheckoutServiceInterface;
 }

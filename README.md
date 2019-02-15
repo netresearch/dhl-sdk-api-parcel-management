@@ -1,73 +1,102 @@
-# DHL Parcel Management API SDK for PHP
+# DHL Paket Parcel Management API SDK
 
-- version 1.0.0
+The DHL Paket Parcel Management API SDK package offers an interface to the following web services:
 
-This library enables PHP developers send and recieve messages to and from the DHL Parcel Management API in a structured way.
+- Parcel Management Checkout API
 
 ## Requirements
 
-- PHP >= 7.0
-- An implementation of "php-http/client-implementation" ^1.0, see [this list](https://packagist.org/providers/php-http/client-implementation).
+### System Requirements
+
+- PHP 7.0+ with JSON extension
+
+### Package Requirements
+
+- `netresearch/jsonmapper`: Mapper for unserializing JSON response messages into PHP objects
+- `php-http/discovery`: Discovery service for HTTP client and message factory implementations
+- `php-http/httplug`: Pluggable HTTP client abstraction
+- `php-http/logger-plugin`: HTTP client logger plugin for HTTPlug
+- `php-http/message`: Message factory implementations & message formatter for logging
+- `php-http/message-factory`: HTTP message factory interfaces
+- `psr/http-message`: PSR-7 HTTP message interfaces
+- `psr/log`: PSR-3 logger interfaces
+
+### Virtual Package Requirements
+
+- `php-http/client-implementation`: Any package that provides a HTTPlug HTTP client
+- `php-http/message-factory-implementationn`: Any package that provides HTTP message factories
+- `psr/http-message-implementation`: Any package that provides PSR-7 HTTP messages
+- `psr/log-implementation`: Any package that provides a PSR-3 logger
+
+### Development Package Requirements
+
+- `phpunit/phpunit`: Testing framework
+- `guzzlehttp/psr7`: PSR-7 HTTP message implementation
+- `php-http/mock-client`: HTTPlug mock client implementation
 
 ## Installation
 
-### Composer
-
-To install the library via [Composer](http://getcomposer.org/), add the following to your projects `composer.json`:
-
-```
-{
-  "require": {
-    "dhl/sdk-api-parcel-management": "^1.0.0",
-    "kriswallsmith/buzz": "*"
-  }
-}
+```bash
+$ composer require dhl/sdk-api-parcel-management
 ```
 
-Then run `composer install`
+## Uninstallation
 
-## Getting Started
+```bash
+$ composer remove dhl/sdk-api-parcel-management
+```
 
-Please follow the [installation procedure](#installation) and then run the following:
+## Testing
+
+```bash
+$ ./vendor/bin/phpunit -c test/phpunit.xml
+```
+
+## Features
+
+The DHL Paket Parcel Management API SDK supports the following features:
+
+* Query available DHL services during checkout ([`/checkout/{recipientZip}/availableServices`](https://entwickler.dhl.de/en/group/ep/operationen1#!/checkout/get_checkout_recipientZip_availableServices))
+
+### Available Services
+
+To present the customer with valid DHL service options during checkout, this API endpoint can be used.
+Available DHL services are calculated using the zip code of the recipient's address (`recipientZip`).
+
+#### Public API
+
+The library's components suitable for consumption comprise of
+
+* services:
+  * service factory
+  * checkout service
+* data transfer objects:
+  * carrier services with availability flag and options (optional)
+* exceptions
+
+#### Usage
 
 ```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-$logger = \Monolog\Logger();      // You can use any PSR compliant logger
-$client = new Buzz\Client\Curl(); // You can use any client that implements php-http/client-implementation, see [Requirements](#requirements)
-
-$serviceFactory = new \Dhl\ParcelManagement\Webservice\ServiceFactory();
-$checkoutService = $serviceFactory->createCheckoutService(
-    'appId',    // string | Application id from DHL
-    'appToken', // string | Application token from DHL
-    'ekp',      // string | DHL customer number of the sender
-    $logger,
-    \Dhl\ParcelManagement\Api\ServiceFactoryInterface::BASE_URL_PRODUCTION, // Switch between PRODUCTION and SANDBOX
-    $client     // Optional. The SDK will try to autodetect installed clients via php-http/discovery
+$serviceFactory = new ServiceFactory();
+$service = $serviceFactory->createCheckoutService(
+    $applicationId = '4pp-1D',
+    $applicationToken = '4pp-t0k3N',
+    $ekp = '1234567890',
+    $logger = new \Psr\Log\NullLogger(),
+    $sandbox = true
 );
 
-try {
-    $response = $checkoutService->performAvailableServiceRequest(
-        'recipientZip', // string | ZIP code of recipient.
-        'startDate'     // string | Day in format "2018-12-31" when the shipment will be dropped off in the DHL parcel center
-    );
-} catch (\Dhl\ParcelManagement\Exception\ApiException $e) {
-    echo 'Exception while retrieving available checkout services: ', $e->getMessage(), PHP_EOL;
-}
+$carrierServices = $service->getCarrierServices($postalCode = '12345', $dropOffDate = '2038-01-19');
 
-?>
+// process response as desired:
+$getAvailableServices = function (array $availableServices, CarrierServiceInterface $carrierService) {
+    if ($carrierService->isAvailable()) {
+        $availableServices[$carrierService->getCode()] = $carrierService;
+    }
+
+    return $availableServices;
+};
+
+$availableServices = array_reduce($carrierServices, $getAvailableServices, []);
+
 ```
-
-## Documentation for API Endpoints
-
-See [https://entwickler.dhl.de/en/group/ep/wsapis/paketsteuerung-](https://entwickler.dhl.de/en/group/ep/wsapis/paketsteuerung-)
-
-Author
-------
-* Sebastian Ertner | [Netresearch GmbH & Co. KG](http://www.netresearch.de/)
-* Max Melzer | [Netresearch GmbH & Co. KG](http://www.netresearch.de/)
-
-License
--------
-MIT License

@@ -4,15 +4,16 @@
          colors="true"
          columns="max"
          stderr="true"
+         bootstrap="../vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="Unit Tests">
+        <testsuite name="Integration Tests">
             <directory>.</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../lib</directory>
+            <directory suffix=".php">../src</directory>
         </whitelist>
     </filter>
 </phpunit>
