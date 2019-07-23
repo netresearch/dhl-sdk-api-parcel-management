@@ -15,6 +15,7 @@ use Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\CarrierServiceResponseMa
 use Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType\AvailableServicesMap;
 use Http\Client\Common\Exception\ClientErrorException;
 use Http\Client\Common\Exception\ServerErrorException;
+use Http\Client\Exception as HttpClientException;
 use Http\Client\HttpClient;
 use Http\Message\RequestFactory;
 
@@ -84,10 +85,12 @@ class CheckoutService implements CheckoutServiceInterface
      * @param string $recipientZip
      * @param string $startDate
      * @param string[] $headers
+     *
      * @return CarrierServiceInterface[]
      *
-     * @throws \Http\Client\Exception
-     * @throws \Exception
+     * @throws ClientException
+     * @throws ServerException
+     * @throws AuthenticationException
      */
     public function getCarrierServices(
         string $recipientZip,
@@ -122,10 +125,12 @@ class CheckoutService implements CheckoutServiceInterface
             throw ClientException::create($exception);
         } catch (ServerErrorException $exception) {
             throw ServerException::create($exception);
+        } catch (HttpClientException $exception) {
+            throw ServerException::create($exception);
+        } catch (\Exception $exception) {
+            throw ServerException::create($exception);
         }
 
-        $result = $this->responseMapper->map($servicesResponse);
-
-        return $result;
+        return $this->responseMapper->map($servicesResponse);
     }
 }

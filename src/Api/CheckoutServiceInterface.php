@@ -29,12 +29,12 @@ interface CheckoutServiceInterface
      * @param string $recipientZip
      * @param string $startDate
      * @param string[] $headers
+     *
      * @return CarrierServiceInterface[]
      *
      * @throws ClientException
      * @throws ServerException
      * @throws AuthenticationException
-     * @throws \Exception
      */
     public function getCarrierServices(
         string $recipientZip,

@@ -39,6 +39,6 @@ class ClientException extends ServiceException
             return new AuthenticationException('Authentication failed.', $exception->getCode(), $exception);
         }
 
-        return new ClientException($exception->getMessage(), $exception->getCode(), $exception);
+        return new self($exception->getMessage(), $exception->getCode(), $exception);
     }
 }
