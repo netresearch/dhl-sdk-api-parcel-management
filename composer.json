@@ -40,7 +40,8 @@
   "require-dev": {
     "guzzlehttp/psr7": "^1.5.0",
     "phpunit/phpunit": "^6.0.0",
-    "php-http/mock-client": "^1.0.0"
+    "php-http/mock-client": "^1.0.0",
+    "phpstan/phpstan": "^0.11.5"
   },
   "autoload": {
     "psr-4": {

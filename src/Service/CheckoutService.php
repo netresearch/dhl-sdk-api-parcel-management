@@ -11,10 +11,10 @@ use Dhl\Sdk\Paket\ParcelManagement\Api\Data\CarrierServiceInterface;
 use Dhl\Sdk\Paket\ParcelManagement\Exception\AuthenticationException;
 use Dhl\Sdk\Paket\ParcelManagement\Exception\ClientException;
 use Dhl\Sdk\Paket\ParcelManagement\Exception\ServerException;
+use Dhl\Sdk\Paket\ParcelManagement\Exception\ServiceException;
 use Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\CarrierServiceResponseMapper;
 use Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType\AvailableServicesMap;
 use Http\Client\Common\Exception\ClientErrorException;
-use Http\Client\Common\Exception\ServerErrorException;
 use Http\Client\Exception as HttpClientException;
 use Http\Client\HttpClient;
 use Http\Message\RequestFactory;
@@ -88,9 +88,7 @@ class CheckoutService implements CheckoutServiceInterface
      *
      * @return CarrierServiceInterface[]
      *
-     * @throws ClientException
-     * @throws ServerException
-     * @throws AuthenticationException
+     * @throws ServiceException
      */
     public function getCarrierServices(
         string $recipientZip,
@@ -120,13 +118,11 @@ class CheckoutService implements CheckoutServiceInterface
             /** @var AvailableServicesMap $servicesResponse */
             $servicesResponse = $this->jsonMapper->map(\json_decode($responseJson), new AvailableServicesMap());
         } catch (\JsonMapper_Exception $exception) {
-            throw ClientException::schemaException($exception);
+            throw ClientException::create($exception);
         } catch (ClientErrorException $exception) {
             throw ClientException::create($exception);
-        } catch (ServerErrorException $exception) {
-            throw ServerException::create($exception);
         } catch (HttpClientException $exception) {
-            throw ServerException::create($exception);
+            throw ServerException::httpClientException($exception);
         } catch (\Exception $exception) {
             throw ServerException::create($exception);
         }

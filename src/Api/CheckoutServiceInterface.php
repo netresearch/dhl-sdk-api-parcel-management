@@ -7,9 +7,7 @@ declare(strict_types=1);
 namespace Dhl\Sdk\Paket\ParcelManagement\Api;
 
 use Dhl\Sdk\Paket\ParcelManagement\Api\Data\CarrierServiceInterface;
-use Dhl\Sdk\Paket\ParcelManagement\Exception\AuthenticationException;
-use Dhl\Sdk\Paket\ParcelManagement\Exception\ClientException;
-use Dhl\Sdk\Paket\ParcelManagement\Exception\ServerException;
+use Dhl\Sdk\Paket\ParcelManagement\Exception\ServiceException;
 
 /**
  * Interface CheckoutServiceInterface
@@ -32,9 +30,7 @@ interface CheckoutServiceInterface
      *
      * @return CarrierServiceInterface[]
      *
-     * @throws ClientException
-     * @throws ServerException
-     * @throws AuthenticationException
+     * @throws ServiceException
      */
     public function getCarrierServices(
         string $recipientZip,
