@@ -7,6 +7,7 @@ declare(strict_types=1);
 namespace Dhl\Sdk\Paket\ParcelManagement\Exception;
 
 use Http\Client\Exception as HttpClientException;
+use Throwable;
 
 /**
  * Class ServiceException
@@ -21,6 +22,21 @@ use Http\Client\Exception as HttpClientException;
  */
 abstract class ServiceException extends \Exception implements HttpClientException
 {
+
+    /**
+     * ServiceException constructor.
+     * @param string $message
+     * @param int $code
+     * @param Throwable|null $previous
+     */
+    final public function __construct(
+        $message = "",
+        $code = 0,
+        Throwable $previous = null
+    ) {
+        parent::__construct($message, $code, $previous);
+    }
+
     /**
      * Create service exception.
      *
