@@ -66,7 +66,7 @@ class HttpServiceFactory implements ServiceFactoryInterface
         $plugins = [
             new HeaderAppendPlugin([self::HEADER_X_EKP => $ekp]),
             new AuthenticationPlugin($authentication),
-            new LoggerPlugin($logger, new FullHttpMessageFormatter(4096)),
+            new LoggerPlugin($logger, new FullHttpMessageFormatter(null)),
             new ErrorPlugin(),
         ];
         $client = new PluginClient($this->httpClient, $plugins);
