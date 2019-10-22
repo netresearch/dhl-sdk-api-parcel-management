@@ -83,7 +83,7 @@ class CheckoutService implements CheckoutServiceInterface
      * Obtain a list of available services for the given postal code and date.
      *
      * @param string $recipientZip
-     * @param string $startDate
+     * @param \DateTime $startDate
      * @param string[] $headers
      *
      * @return CarrierServiceInterface[]
@@ -92,11 +92,11 @@ class CheckoutService implements CheckoutServiceInterface
      */
     public function getCarrierServices(
         string $recipientZip,
-        string $startDate,
+        \DateTime $startDate,
         array $headers = []
     ): array {
         $headers['Accept'] = 'application/json';
-        $requestParams = ['startDate' => $startDate];
+        $requestParams = ['startDate' => $startDate->format('Y-m-d')];
 
         $uri = sprintf(
             '%s%s/%s/availableServices?%s',

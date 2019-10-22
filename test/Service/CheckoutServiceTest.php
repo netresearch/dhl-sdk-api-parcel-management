@@ -71,7 +71,7 @@ class CheckoutServiceTest extends \PHPUnit\Framework\TestCase
         $serviceFactory = new HttpServiceFactory($httpClient);
 
         $service = $serviceFactory->createCheckoutService('4pp-1D', '4pp-t0k3N', '1234567890', $logger, true);
-        $carrierServices = $service->getCarrierServices('04229', '2019-02-21');
+        $carrierServices = $service->getCarrierServices('04229', new \DateTime('2019-02-21'));
 
         $request = $httpClient->getLastRequest();
         Expectation::assertRequestLogged($request, $logger);
@@ -125,7 +125,7 @@ class CheckoutServiceTest extends \PHPUnit\Framework\TestCase
         $service = $serviceFactory->createCheckoutService('4pp-1D', '4pp-t0k3N', '1234567890', $logger, true);
 
         try {
-            $service->getCarrierServices('12345', '1970-01-01');
+            $service->getCarrierServices('12345', new \DateTime('1970-01-01'));
         } catch (ServiceException $exception) {
             $request = $httpClient->getLastRequest();
 
