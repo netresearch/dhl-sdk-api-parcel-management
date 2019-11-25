@@ -16,7 +16,6 @@ use Throwable;
  * cases where the exact type does not matter.
  *
  * @api
- * @package Dhl\Sdk\Paket\ParcelManagement\Exception
  * @author  Max Melzer <max.melzer@netresearch.de>
  * @link    https://www.netresearch.de/
  */

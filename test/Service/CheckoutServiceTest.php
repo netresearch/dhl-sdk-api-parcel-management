@@ -18,7 +18,6 @@ use Http\Mock\Client;
 /**
  * Class CheckoutServiceTest
  *
- * @package Dhl\Sdk\Paket\ParcelManagement\Test
  * @author  Christoph Aßmann <christoph.assmann@netresearch.de>
  * @link    https://www.netresearch.de/
  */

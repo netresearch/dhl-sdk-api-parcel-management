@@ -9,7 +9,6 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType;
 /**
  * Class PreferredDayAvailable
  *
- * @package Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService
  * @author  Max Melzer <max.melzer@netresearch.de>
  * @link    https://www.netresearch.de/
  */

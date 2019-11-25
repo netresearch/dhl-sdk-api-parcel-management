@@ -12,7 +12,6 @@ use Dhl\Sdk\Paket\ParcelManagement\Api\Data\IntervalOptionInterface;
 /**
  * CarrierService
  *
- * @package Dhl\Sdk\Paket\ParcelManagement\Service
  * @author  Paul Siedler <paul.siedler@netresearch.de>
  * @link    https://www.netresearch.de/
  */

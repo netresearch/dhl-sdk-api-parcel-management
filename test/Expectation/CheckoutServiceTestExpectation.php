@@ -15,7 +15,6 @@ use Psr\Log\Test\TestLogger;
 /**
  * Class CheckoutServiceTestExpectation
  *
- * @package Dhl\Sdk\Paket\ParcelManagement\Test
  * @author  Christoph Aßmann <christoph.assmann@netresearch.de>
  * @link    https://www.netresearch.de/
  */

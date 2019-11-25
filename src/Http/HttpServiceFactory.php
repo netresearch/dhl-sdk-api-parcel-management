@@ -24,7 +24,6 @@ use Psr\Log\LoggerInterface;
 /**
  * Class HttpServiceFactory
  *
- * @package Dhl\Sdk\Paket\ParcelManagement\Http
  * @author  Christoph Aßmann <christoph.assmann@netresearch.de>
  * @link    https://www.netresearch.de/
  */

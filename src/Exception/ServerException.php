@@ -10,7 +10,6 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Exception;
  * Class ServerException
  *
  * @api
- * @package Dhl\Sdk\Paket\ParcelManagement\Exception
  * @author  Max Melzer <max.melzer@netresearch.de>
  * @link    https://www.netresearch.de/
  */

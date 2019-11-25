@@ -15,7 +15,6 @@ use Dhl\Sdk\Paket\ParcelManagement\Exception\ServiceException;
  * Entrypoint for DHL Paket Parcel Management checkout operations.
  *
  * @api
- * @package Dhl\Sdk\Paket\ParcelManagement\Api
  * @author  Paul Siedler <paul.siedler@netresearch.de>
  * @link    https://www.netresearch.de/
  */

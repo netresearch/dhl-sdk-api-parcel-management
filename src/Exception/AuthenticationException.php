@@ -10,7 +10,6 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Exception;
  * Class AuthenticationException
  *
  * @api
- * @package Dhl\Sdk\Paket\ParcelManagement\Exception
  * @author  Paul Siedler <paul.siedler@netresearch.de>
  * @link    https://www.netresearch.de/
  */

@@ -14,7 +14,6 @@ use Psr\Log\LoggerInterface;
  * Interface ServiceFactoryInterface
  *
  * @api
- * @package Dhl\Sdk\Paket\ParcelManagement\Api
  * @author  Paul Siedler <paul.siedler@netresearch.de>
  * @link    https://www.netresearch.de/
  */

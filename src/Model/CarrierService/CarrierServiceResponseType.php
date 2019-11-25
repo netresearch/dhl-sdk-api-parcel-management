@@ -11,7 +11,6 @@ use Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType\AvailableSe
 /**
  * Class CarrierServiceResponseType
  *
- * @package Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService
  * @author  Max Melzer <max.melzer@netresearch.de>
  * @link    https://www.netresearch.de/
  */

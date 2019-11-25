@@ -24,7 +24,6 @@ use Http\Message\RequestFactory;
  *
  * Entrypoint for DHL Paket Parcel Management checkout operations.
  *
- * @package Dhl\Sdk\Paket\ParcelManagement\Service
  * @author  Paul Siedler <paul.siedler@netresearch.de>
  * @link    https://www.netresearch.de/
  */

@@ -16,7 +16,6 @@ use Dhl\Sdk\Paket\ParcelManagement\Service\CheckoutService\TimeFrameOption;
 /**
  * CarrierServiceResponseMapper
  *
- * @package Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService
  * @author  Paul Siedler <paul.siedler@netresearch.de>
  * @link    https://www.netresearch.de/
  */

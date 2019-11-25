@@ -9,7 +9,6 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Test\Provider;
 /**
  * Class CheckoutServiceTestProvider
  *
- * @package Dhl\Sdk\Paket\ParcelManagement\Test
  * @author  Christoph Aßmann <christoph.assmann@netresearch.de>
  * @link    https://www.netresearch.de/
  */

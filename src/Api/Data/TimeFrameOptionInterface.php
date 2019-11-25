@@ -10,7 +10,6 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Api\Data;
  * Interface TimeFrameOptionInterface
  *
  * @api
- * @package Dhl\Sdk\Paket\ParcelManagement\Api\Data
  * @author  Christoph Aßmann <christoph.assmann@netresearch.de>
  * @link    https://www.netresearch.de/
  */
