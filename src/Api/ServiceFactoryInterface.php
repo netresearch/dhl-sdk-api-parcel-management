@@ -1,13 +1,15 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
 namespace Dhl\Sdk\Paket\ParcelManagement\Api;
 
+use Dhl\Sdk\Paket\ParcelManagement\Exception\ServiceException;
 use Dhl\Sdk\Paket\ParcelManagement\Service\CheckoutService;
-use Http\Discovery\Exception\NotFoundException;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -25,7 +27,7 @@ interface ServiceFactoryInterface
     const HEADER_X_EKP = 'X-EKP';
 
     /**
-     * Create the checkout service to retrieve applicable services and estimated delivery dates during checkout.
+     * Create the checkout service to retrieve applicable carrier services and estimated delivery dates during checkout.
      *
      * @param string $appId
      * @param string $appToken
@@ -34,7 +36,7 @@ interface ServiceFactoryInterface
      * @param bool $sandboxMode
      * @return CheckoutService
      *
-     * @throws NotFoundException
+     * @throws ServiceException
      */
     public function createCheckoutService(
         string $appId,

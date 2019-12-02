@@ -1,7 +1,9 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
 namespace Dhl\Sdk\Paket\ParcelManagement\Test\Provider;
@@ -18,7 +20,7 @@ class CheckoutServiceTestProvider
      * Provide responses for the test case
      * - request sent to the API, services successfully returned.
      *
-     * @return mixed[]
+     * @return int[][]|string[][]
      */
     public static function getCarrierServicesSuccess()
     {
@@ -33,7 +35,7 @@ class CheckoutServiceTestProvider
      * Provide responses for the test case
      * - request sent to the API, error returned
      *
-     * @return mixed[]
+     * @return int[][]|string[][]
      */
     public static function getCarrierServicesError()
     {
@@ -47,25 +49,5 @@ class CheckoutServiceTestProvider
             '401 unauthorized' => [401, 'text/html', $unauthorizedResponse],
             '500 server error' => [500, 'text/html', $serverErrorResponse],
         ];
-    }
-
-    private function parseErrorMessage(string $responseBody)
-    {
-        preg_match("#<body>(.*)</body>#sim", $responseBody, $matches);
-        $body = $matches[1];
-        $body = trim(strip_tags($body));
-        $lines = explode("\n", $body);
-
-        $errorMessage = array_reduce($lines, function ($carry, $line) {
-            if (empty($carry) || (0 === strpos($line, ' '))) {
-                $carry.= $line;
-            } else {
-                $carry.= ' | ' . $line;
-            }
-
-            return $carry;
-        }, '');
-
-        return $errorMessage;
     }
 }

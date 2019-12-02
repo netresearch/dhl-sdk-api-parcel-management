@@ -1,20 +1,17 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
 namespace Dhl\Sdk\Paket\ParcelManagement\Service;
 
 use Dhl\Sdk\Paket\ParcelManagement\Api\CheckoutServiceInterface;
-use Dhl\Sdk\Paket\ParcelManagement\Api\Data\CarrierServiceInterface;
-use Dhl\Sdk\Paket\ParcelManagement\Exception\AuthenticationException;
-use Dhl\Sdk\Paket\ParcelManagement\Exception\ClientException;
-use Dhl\Sdk\Paket\ParcelManagement\Exception\ServerException;
-use Dhl\Sdk\Paket\ParcelManagement\Exception\ServiceException;
+use Dhl\Sdk\Paket\ParcelManagement\Exception\ServiceExceptionFactory;
 use Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\CarrierServiceResponseMapper;
 use Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType\AvailableServicesMap;
-use Http\Client\Common\Exception\ClientErrorException;
 use Http\Client\Exception as HttpClientException;
 use Http\Client\HttpClient;
 use Http\Message\RequestFactory;
@@ -78,17 +75,6 @@ class CheckoutService implements CheckoutServiceInterface
         $this->responseMapper = $responseMapper;
     }
 
-    /**
-     * Obtain a list of available services for the given postal code and date.
-     *
-     * @param string $recipientZip
-     * @param \DateTime $startDate
-     * @param string[] $headers
-     *
-     * @return CarrierServiceInterface[]
-     *
-     * @throws ServiceException
-     */
     public function getCarrierServices(
         string $recipientZip,
         \DateTime $startDate,
@@ -116,14 +102,14 @@ class CheckoutService implements CheckoutServiceInterface
 
             /** @var AvailableServicesMap $servicesResponse */
             $servicesResponse = $this->jsonMapper->map(\json_decode($responseJson), new AvailableServicesMap());
-        } catch (\JsonMapper_Exception $exception) {
-            throw ClientException::create($exception);
-        } catch (ClientErrorException $exception) {
-            throw ClientException::create($exception);
+        } catch (\Throwable $exception) {
+            if ($exception->getCode() === 401) {
+                throw ServiceExceptionFactory::createAuthenticationException($exception);
+            }
+
+            throw ServiceExceptionFactory::create($exception);
         } catch (HttpClientException $exception) {
-            throw ServerException::httpClientException($exception);
-        } catch (\Exception $exception) {
-            throw ServerException::create($exception);
+            throw ServiceExceptionFactory::createServiceException($exception);
         }
 
         return $this->responseMapper->map($servicesResponse);

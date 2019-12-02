@@ -1,7 +1,9 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
 namespace Dhl\Sdk\Paket\ParcelManagement\Service\CheckoutService;
@@ -37,17 +39,11 @@ class IntervalOption implements IntervalOptionInterface
         $this->end = $end;
     }
 
-    /**
-     * @return string
-     */
     public function getStart(): string
     {
         return $this->start;
     }
 
-    /**
-     * @return string
-     */
     public function getEnd(): string
     {
         return $this->end;

@@ -1,7 +1,9 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
 namespace Dhl\Sdk\Paket\ParcelManagement\Service\CheckoutService;
@@ -45,25 +47,16 @@ class CarrierService implements CarrierServiceInterface
         $this->options = $options;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @return bool
-     */
     public function isAvailable(): bool
     {
         return $this->available;
     }
 
-    /**
-     * @return IntervalOptionInterface[]
-     */
     public function getOptions(): array
     {
         return $this->options;

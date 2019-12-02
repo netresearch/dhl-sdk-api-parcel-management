@@ -1,12 +1,15 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
 namespace Dhl\Sdk\Paket\ParcelManagement\Api;
 
 use Dhl\Sdk\Paket\ParcelManagement\Api\Data\CarrierServiceInterface;
+use Dhl\Sdk\Paket\ParcelManagement\Exception\AuthenticationException;
 use Dhl\Sdk\Paket\ParcelManagement\Exception\ServiceException;
 
 /**
@@ -29,6 +32,7 @@ interface CheckoutServiceInterface
      *
      * @return CarrierServiceInterface[]
      *
+     * @throws AuthenticationException
      * @throws ServiceException
      */
     public function getCarrierServices(

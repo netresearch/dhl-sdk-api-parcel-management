@@ -1,7 +1,9 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
 namespace Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService;
@@ -50,7 +52,7 @@ class CarrierServiceResponseMapper
 
         $preferredDayOptions = [];
         foreach ($response->getPreferredDay()->getValidDays() as $interval) {
-            $preferredDayOptions[]= new IntervalOption($interval->getStart(), $interval->getEnd());
+            $preferredDayOptions[] = new IntervalOption($interval->getStart(), $interval->getEnd());
         }
         $preferredDayService = new CarrierService(
             'preferredDay',
@@ -74,7 +76,7 @@ class CarrierServiceResponseMapper
 
         $sameDayDeliveryOptions = [];
         foreach ($response->getSameDayDelivery()->getSameDayTimeframes() as $areaTimeFrame) {
-            $sameDayDeliveryOptions[]= new AreaTimeFrameOption(
+            $sameDayDeliveryOptions[] = new AreaTimeFrameOption(
                 $areaTimeFrame->getStart(),
                 $areaTimeFrame->getEnd(),
                 $areaTimeFrame->getCode(),
@@ -89,13 +91,13 @@ class CarrierServiceResponseMapper
             $sameDayDeliveryOptions
         );
 
-        $services[]= $preferredLocationService;
-        $services[]= $preferredNeighbourService;
-        $services[]= $inCarDeliveryService;
-        $services[]= $noNeighbourDeliveryService;
-        $services[]= $preferredDayService;
-        $services[]= $preferredTimeService;
-        $services[]= $sameDayDeliveryService;
+        $services[] = $preferredLocationService;
+        $services[] = $preferredNeighbourService;
+        $services[] = $inCarDeliveryService;
+        $services[] = $noNeighbourDeliveryService;
+        $services[] = $preferredDayService;
+        $services[] = $preferredTimeService;
+        $services[] = $sameDayDeliveryService;
 
         return $services;
     }

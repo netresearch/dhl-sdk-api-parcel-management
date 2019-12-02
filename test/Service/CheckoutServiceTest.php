@@ -1,19 +1,23 @@
 <?php
+
 /**
  * See LICENSE.md for license details.
  */
+
 declare(strict_types=1);
 
 namespace Dhl\Sdk\Paket\ParcelManagement\Test\Service;
 
 use Dhl\Sdk\Paket\ParcelManagement\Exception\AuthenticationException;
-use Dhl\Sdk\Paket\ParcelManagement\Exception\ClientException;
-use Dhl\Sdk\Paket\ParcelManagement\Exception\ServerException;
 use Dhl\Sdk\Paket\ParcelManagement\Exception\ServiceException;
 use Dhl\Sdk\Paket\ParcelManagement\Http\HttpServiceFactory;
 use Dhl\Sdk\Paket\ParcelManagement\Test\Expectation\CheckoutServiceTestExpectation as Expectation;
 use Dhl\Sdk\Paket\ParcelManagement\Test\Provider\CheckoutServiceTestProvider;
+use Http\Discovery\MessageFactoryDiscovery;
+use Http\Discovery\StreamFactoryDiscovery;
 use Http\Mock\Client;
+use PHPUnit\Framework\TestCase;
+use Psr\Log\Test\TestLogger;
 
 /**
  * Class CheckoutServiceTest
@@ -21,10 +25,10 @@ use Http\Mock\Client;
  * @author  Christoph Aßmann <christoph.assmann@netresearch.de>
  * @link    https://www.netresearch.de/
  */
-class CheckoutServiceTest extends \PHPUnit\Framework\TestCase
+class CheckoutServiceTest extends TestCase
 {
     /**
-     * @return mixed[]
+     * @return int[][]|string[][]
      */
     public function successDataProvider()
     {
@@ -32,7 +36,7 @@ class CheckoutServiceTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return mixed[]
+     * @return int[][]|string[][]
      */
     public function errorDataProvider()
     {
@@ -57,8 +61,8 @@ class CheckoutServiceTest extends \PHPUnit\Framework\TestCase
     public function getCarrierServicesSuccess(int $status, string $contentType, string $responseBody)
     {
         $httpClient = new Client();
-        $responseFactory = \Http\Discovery\MessageFactoryDiscovery::find();
-        $streamFactory = \Http\Discovery\StreamFactoryDiscovery::find();
+        $responseFactory = MessageFactoryDiscovery::find();
+        $streamFactory = StreamFactoryDiscovery::find();
 
         $servicesResponse = $responseFactory
             ->createResponse((int) $status)
@@ -66,7 +70,7 @@ class CheckoutServiceTest extends \PHPUnit\Framework\TestCase
             ->withHeader('Content-Type', $contentType);
 
         $httpClient->setDefaultResponse($servicesResponse);
-        $logger = new \Psr\Log\Test\TestLogger();
+        $logger = new TestLogger();
         $serviceFactory = new HttpServiceFactory($httpClient);
 
         $service = $serviceFactory->createCheckoutService('4pp-1D', '4pp-t0k3N', '1234567890', $logger, true);
@@ -92,7 +96,6 @@ class CheckoutServiceTest extends \PHPUnit\Framework\TestCase
      * @param string $contentType
      * @param string $responseBody
      * @throws ServiceException
-     * @throws \Exception
      */
     public function getCarrierServicesError(int $status, string $contentType, string $responseBody)
     {
@@ -100,17 +103,15 @@ class CheckoutServiceTest extends \PHPUnit\Framework\TestCase
 
         if ($status === 401) {
             $this->expectException(AuthenticationException::class);
-        } elseif (($status >= 400) && ($status < 500)) {
-            $this->expectException(ClientException::class);
-        } elseif (($status >= 500) && ($status < 600)) {
-            $this->expectException(ServerException::class);
+        } elseif (($status >= 400) && ($status < 600)) {
+            $this->expectException(ServiceException::class);
         } else {
             $this->markTestIncomplete('Invalid mock response.');
         }
 
         $httpClient = new Client();
-        $responseFactory = \Http\Discovery\MessageFactoryDiscovery::find();
-        $streamFactory = \Http\Discovery\StreamFactoryDiscovery::find();
+        $responseFactory = MessageFactoryDiscovery::find();
+        $streamFactory = StreamFactoryDiscovery::find();
 
         $servicesResponse = $responseFactory
             ->createResponse((int) $status)
@@ -118,7 +119,7 @@ class CheckoutServiceTest extends \PHPUnit\Framework\TestCase
             ->withHeader('Content-Type', $contentType);
 
         $httpClient->setDefaultResponse($servicesResponse);
-        $logger = new \Psr\Log\Test\TestLogger();
+        $logger = new TestLogger();
         $serviceFactory = new HttpServiceFactory($httpClient);
 
         $service = $serviceFactory->createCheckoutService('4pp-1D', '4pp-t0k3N', '1234567890', $logger, true);
