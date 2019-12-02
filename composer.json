@@ -53,10 +53,5 @@
     "psr-4": {
       "Dhl\\Sdk\\Paket\\ParcelManagement\\Test\\": "test/"
     }
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-develop": "1.1.x-dev"
-    }
   }
 }
