@@ -26,9 +26,6 @@ class PreferredTimeAvailable
      */
     private $timeFrames;
 
-    /**
-     * @return bool
-     */
     public function isAvailable(): bool
     {
         return $this->available;

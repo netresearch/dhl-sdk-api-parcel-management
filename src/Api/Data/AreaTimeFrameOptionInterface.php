@@ -17,18 +17,9 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Api\Data;
  */
 interface AreaTimeFrameOptionInterface extends TimeFrameOptionInterface
 {
-    /**
-     * @return string
-     */
     public function getDenselyPopulatedAreaId(): string;
 
-    /**
-     * @return string
-     */
     public function getDenselyPopulatedAreaName(): string;
 
-    /**
-     * @return string
-     */
     public function getDeliveryBaseId(): string;
 }

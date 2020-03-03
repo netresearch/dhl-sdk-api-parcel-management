@@ -46,49 +46,31 @@ class SameDayTimeframe
      */
     private $deliveryBaseId;
 
-    /**
-     * @return string
-     */
     public function getStart(): string
     {
         return $this->start;
     }
 
-    /**
-     * @return string
-     */
     public function getEnd(): string
     {
         return $this->end;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @return string
-     */
     public function getDenselyPopulatedAreaId(): string
     {
         return $this->denselyPopulatedAreaId;
     }
 
-    /**
-     * @return string
-     */
     public function getDenselyPopulatedAreaName(): string
     {
         return $this->denselyPopulatedAreaName;
     }
 
-    /**
-     * @return string
-     */
     public function getDeliveryBaseId(): string
     {
         return $this->deliveryBaseId;

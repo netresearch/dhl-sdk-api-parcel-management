@@ -26,17 +26,11 @@ class TimeInterval
      */
     private $end;
 
-    /**
-     * @return string
-     */
     public function getStart(): string
     {
         return $this->start;
     }
 
-    /**
-     * @return string
-     */
     public function getEnd(): string
     {
         return $this->end;

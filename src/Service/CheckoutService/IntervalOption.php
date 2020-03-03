@@ -28,11 +28,6 @@ class IntervalOption implements IntervalOptionInterface
      */
     private $end;
 
-    /**
-     * IntervalOption constructor.
-     * @param string $start
-     * @param string $end
-     */
     public function __construct(string $start, string $end)
     {
         $this->start = $start;

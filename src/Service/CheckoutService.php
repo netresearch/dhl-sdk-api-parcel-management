@@ -12,9 +12,9 @@ use Dhl\Sdk\Paket\ParcelManagement\Api\CheckoutServiceInterface;
 use Dhl\Sdk\Paket\ParcelManagement\Exception\ServiceExceptionFactory;
 use Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\CarrierServiceResponseMapper;
 use Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType\AvailableServicesMap;
-use Http\Client\Exception as HttpClientException;
-use Http\Client\HttpClient;
-use Http\Message\RequestFactory;
+use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
 
 /**
  * CheckoutService
@@ -26,10 +26,10 @@ use Http\Message\RequestFactory;
  */
 class CheckoutService implements CheckoutServiceInterface
 {
-    const RESOURCE = 'checkout';
+    private const RESOURCE = 'checkout';
 
     /**
-     * @var HttpClient
+     * @var ClientInterface
      */
     private $client;
 
@@ -39,7 +39,7 @@ class CheckoutService implements CheckoutServiceInterface
     private $baseUrl;
 
     /**
-     * @var RequestFactory
+     * @var RequestFactoryInterface
      */
     private $requestFactory;
 
@@ -53,18 +53,10 @@ class CheckoutService implements CheckoutServiceInterface
      */
     private $responseMapper;
 
-    /**
-     * CheckoutService constructor.
-     * @param HttpClient $client
-     * @param string $baseUrl
-     * @param RequestFactory $requestFactory
-     * @param \JsonMapper $jsonMapper
-     * @param CarrierServiceResponseMapper $responseMapper
-     */
     public function __construct(
-        HttpClient $client,
+        ClientInterface $client,
         string $baseUrl,
-        RequestFactory $requestFactory,
+        RequestFactoryInterface $requestFactory,
         \JsonMapper $jsonMapper,
         CarrierServiceResponseMapper $responseMapper
     ) {
@@ -102,14 +94,16 @@ class CheckoutService implements CheckoutServiceInterface
 
             /** @var AvailableServicesMap $servicesResponse */
             $servicesResponse = $this->jsonMapper->map(\json_decode($responseJson), new AvailableServicesMap());
+        } catch (ClientExceptionInterface $exception) {
+            if ($exception->getCode() === 401) {
+                throw ServiceExceptionFactory::createAuthenticationException($exception);
+            }
+            throw ServiceExceptionFactory::createServiceException($exception);
         } catch (\Throwable $exception) {
             if ($exception->getCode() === 401) {
                 throw ServiceExceptionFactory::createAuthenticationException($exception);
             }
-
             throw ServiceExceptionFactory::create($exception);
-        } catch (HttpClientException $exception) {
-            throw ServiceExceptionFactory::createServiceException($exception);
         }
 
         return $this->responseMapper->map($servicesResponse);

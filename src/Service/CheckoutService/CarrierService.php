@@ -36,6 +36,7 @@ class CarrierService implements CarrierServiceInterface
 
     /**
      * CarrierService constructor.
+     *
      * @param string $code
      * @param bool $available
      * @param IntervalOptionInterface[] $options
@@ -57,6 +58,9 @@ class CarrierService implements CarrierServiceInterface
         return $this->available;
     }
 
+    /**
+     * @return IntervalOptionInterface[]
+     */
     public function getOptions(): array
     {
         return $this->options;

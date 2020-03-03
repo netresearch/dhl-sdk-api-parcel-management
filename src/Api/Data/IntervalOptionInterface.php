@@ -17,13 +17,7 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Api\Data;
  */
 interface IntervalOptionInterface
 {
-    /**
-     * @return string
-     */
     public function getStart(): string;
 
-    /**
-     * @return string
-     */
     public function getEnd(): string;
 }

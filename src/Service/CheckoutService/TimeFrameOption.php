@@ -33,12 +33,6 @@ class TimeFrameOption implements TimeFrameOptionInterface
      */
     private $code;
 
-    /**
-     * TimeFrameOption constructor.
-     * @param string $start
-     * @param string $end
-     * @param string $code
-     */
     public function __construct(string $start, string $end, string $code)
     {
         $this->start = $start;

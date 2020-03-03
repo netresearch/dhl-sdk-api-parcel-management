@@ -21,10 +21,10 @@ use Psr\Log\LoggerInterface;
  */
 interface ServiceFactoryInterface
 {
-    const BASE_URL_PRODUCTION = 'https://cig.dhl.de/services/production/rest/';
-    const BASE_URL_SANDBOX = 'https://cig.dhl.de/services/sandbox/rest/';
+    public const BASE_URL_PRODUCTION = 'https://cig.dhl.de/services/production/rest/';
+    public const BASE_URL_SANDBOX = 'https://cig.dhl.de/services/sandbox/rest/';
 
-    const HEADER_X_EKP = 'X-EKP';
+    public const HEADER_X_EKP = 'X-EKP';
 
     /**
      * Create the checkout service to retrieve applicable carrier services and estimated delivery dates during checkout.

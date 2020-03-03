@@ -23,19 +23,11 @@ class CarrierServiceResponseType
      */
     private $availableServicesMap;
 
-    /**
-     * Response constructor.
-     *
-     * @param AvailableServicesMap $availableServicesMap
-     */
     public function __construct(AvailableServicesMap $availableServicesMap)
     {
         $this->availableServicesMap = $availableServicesMap;
     }
 
-    /**
-     * @return AvailableServicesMap
-     */
     public function getAvailableServicesMap(): AvailableServicesMap
     {
         return $this->availableServicesMap;

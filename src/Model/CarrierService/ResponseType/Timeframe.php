@@ -31,25 +31,16 @@ class Timeframe
      */
     private $code;
 
-    /**
-     * @return string
-     */
     public function getStart(): string
     {
         return $this->start;
     }
 
-    /**
-     * @return string
-     */
     public function getEnd(): string
     {
         return $this->end;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;

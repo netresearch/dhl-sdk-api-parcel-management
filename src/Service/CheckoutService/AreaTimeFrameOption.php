@@ -48,15 +48,6 @@ class AreaTimeFrameOption implements AreaTimeFrameOptionInterface
      */
     private $deliveryBaseId;
 
-    /**
-     * AreaTimeFrameOption constructor.
-     * @param string $start
-     * @param string $end
-     * @param string $code
-     * @param string $denselyPopulatedAreaId
-     * @param string $denselyPopulatedAreaName
-     * @param string $deliveryBaseId
-     */
     public function __construct(
         string $start,
         string $end,

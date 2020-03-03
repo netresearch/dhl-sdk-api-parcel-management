@@ -26,9 +26,6 @@ class PreferredDayAvailable
      */
     private $validDays;
 
-    /**
-     * @return bool
-     */
     public function isAvailable(): bool
     {
         return $this->available;

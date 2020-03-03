@@ -26,9 +26,6 @@ class SameDayDeliveryAvailable
      */
     private $sameDayTimeframes;
 
-    /**
-     * @return bool
-     */
     public function isAvailable(): bool
     {
         return $this->available;

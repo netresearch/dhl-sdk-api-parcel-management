@@ -38,8 +38,7 @@ class ServiceFactory implements ServiceFactoryInterface
         }
 
         $httpServiceFactory = new HttpServiceFactory($httpClient);
-        $authService = $httpServiceFactory->createCheckoutService($appId, $appToken, $ekp, $logger, $sandboxMode);
 
-        return $authService;
+        return $httpServiceFactory->createCheckoutService($appId, $appToken, $ekp, $logger, $sandboxMode);
     }
 }

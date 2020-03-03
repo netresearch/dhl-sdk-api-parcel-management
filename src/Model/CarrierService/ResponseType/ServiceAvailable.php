@@ -21,9 +21,6 @@ class ServiceAvailable
      */
     private $available;
 
-    /**
-     * @return bool
-     */
     public function isAvailable(): bool
     {
         return $this->available;

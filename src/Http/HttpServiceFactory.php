@@ -18,11 +18,11 @@ use Http\Client\Common\Plugin\ErrorPlugin;
 use Http\Client\Common\Plugin\HeaderAppendPlugin;
 use Http\Client\Common\Plugin\LoggerPlugin;
 use Http\Client\Common\PluginClient;
-use Http\Client\HttpClient;
 use Http\Discovery\Exception\NotFoundException;
-use Http\Discovery\MessageFactoryDiscovery;
+use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Message\Authentication\BasicAuth;
 use Http\Message\Formatter\FullHttpMessageFormatter;
+use Psr\Http\Client\ClientInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -34,15 +34,11 @@ use Psr\Log\LoggerInterface;
 class HttpServiceFactory implements ServiceFactoryInterface
 {
     /**
-     * @var HttpClient
+     * @var ClientInterface
      */
     private $httpClient;
 
-    /**
-     * HttpServiceFactory constructor.
-     * @param HttpClient $httpClient
-     */
-    public function __construct(HttpClient $httpClient)
+    public function __construct(ClientInterface $httpClient)
     {
         $this->httpClient = $httpClient;
     }
@@ -71,7 +67,7 @@ class HttpServiceFactory implements ServiceFactoryInterface
         $baseUrl = $sandboxMode ? self::BASE_URL_SANDBOX : self::BASE_URL_PRODUCTION;
 
         try {
-            $requestFactory = MessageFactoryDiscovery::find();
+            $requestFactory = Psr17FactoryDiscovery::findRequestFactory();
         } catch (NotFoundException $exception) {
             throw ServiceExceptionFactory::create($exception);
         }

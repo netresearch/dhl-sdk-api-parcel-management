@@ -17,8 +17,5 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Api\Data;
  */
 interface TimeFrameOptionInterface extends IntervalOptionInterface
 {
-    /**
-     * @return string
-     */
     public function getCode(): string;
 }

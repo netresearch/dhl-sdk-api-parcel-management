@@ -17,14 +17,8 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Api\Data;
  */
 interface CarrierServiceInterface
 {
-    /**
-     * @return string
-     */
     public function getCode(): string;
 
-    /**
-     * @return bool
-     */
     public function isAvailable(): bool;
 
     /**

@@ -13,8 +13,7 @@ use Dhl\Sdk\Paket\ParcelManagement\Exception\ServiceException;
 use Dhl\Sdk\Paket\ParcelManagement\Http\HttpServiceFactory;
 use Dhl\Sdk\Paket\ParcelManagement\Test\Expectation\CheckoutServiceTestExpectation as Expectation;
 use Dhl\Sdk\Paket\ParcelManagement\Test\Provider\CheckoutServiceTestProvider;
-use Http\Discovery\MessageFactoryDiscovery;
-use Http\Discovery\StreamFactoryDiscovery;
+use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Mock\Client;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\Test\TestLogger;
@@ -58,14 +57,14 @@ class CheckoutServiceTest extends TestCase
      * @param string $responseBody
      * @throws ServiceException
      */
-    public function getCarrierServicesSuccess(int $status, string $contentType, string $responseBody)
+    public function getCarrierServicesSuccess(int $status, string $contentType, string $responseBody): void
     {
         $httpClient = new Client();
-        $responseFactory = MessageFactoryDiscovery::find();
-        $streamFactory = StreamFactoryDiscovery::find();
+        $responseFactory = Psr17FactoryDiscovery::findResponseFactory();
+        $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
 
         $servicesResponse = $responseFactory
-            ->createResponse((int) $status)
+            ->createResponse($status)
             ->withBody($streamFactory->createStream($responseBody))
             ->withHeader('Content-Type', $contentType);
 
@@ -97,7 +96,7 @@ class CheckoutServiceTest extends TestCase
      * @param string $responseBody
      * @throws ServiceException
      */
-    public function getCarrierServicesError(int $status, string $contentType, string $responseBody)
+    public function getCarrierServicesError(int $status, string $contentType, string $responseBody): void
     {
         $this->expectExceptionCode($status);
 
@@ -106,15 +105,15 @@ class CheckoutServiceTest extends TestCase
         } elseif (($status >= 400) && ($status < 600)) {
             $this->expectException(ServiceException::class);
         } else {
-            $this->markTestIncomplete('Invalid mock response.');
+            self::markTestIncomplete('Invalid mock response.');
         }
 
         $httpClient = new Client();
-        $responseFactory = MessageFactoryDiscovery::find();
-        $streamFactory = StreamFactoryDiscovery::find();
+        $responseFactory = Psr17FactoryDiscovery::findResponseFactory();
+        $streamFactory = Psr17FactoryDiscovery::findStreamFactory();
 
         $servicesResponse = $responseFactory
-            ->createResponse((int) $status)
+            ->createResponse($status)
             ->withBody($streamFactory->createStream($responseBody))
             ->withHeader('Content-Type', $contentType);
 
