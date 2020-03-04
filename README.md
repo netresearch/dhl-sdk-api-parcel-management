@@ -78,7 +78,7 @@ The library's components suitable for consumption comprise of
 #### Usage
 
 ```php
-$serviceFactory = new ServiceFactory();
+$serviceFactory = new \Dhl\Sdk\Paket\ParcelManagement\Service\ServiceFactory();
 $service = $serviceFactory->createCheckoutService(
     $applicationId = '4pp-1D',
     $applicationToken = '4pp-t0k3N',
@@ -87,10 +87,13 @@ $service = $serviceFactory->createCheckoutService(
     $sandbox = true
 );
 
-$carrierServices = $service->getCarrierServices($postalCode = '12345', $dropOffDate = '2038-01-19');
+$carrierServices = $service->getCarrierServices($postalCode = '12345', $dropOffDate = new \DateTime('2038-01-19'));
 
 // process response as desired:
-$getAvailableServices = function (array $availableServices, CarrierServiceInterface $carrierService) {
+$getAvailableServices = function (
+    array $availableServices,
+    \Dhl\Sdk\Paket\ParcelManagement\Api\Data\CarrierServiceInterface $carrierService
+) {
     if ($carrierService->isAvailable()) {
         $availableServices[$carrierService->getCode()] = $carrierService;
     }
@@ -99,5 +102,4 @@ $getAvailableServices = function (array $availableServices, CarrierServiceInterf
 };
 
 $availableServices = array_reduce($carrierServices, $getAvailableServices, []);
-
 ```
