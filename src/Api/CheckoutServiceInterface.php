@@ -27,7 +27,7 @@ interface CheckoutServiceInterface
      * Obtain a list of available services for the given postal code and date.
      *
      * @param string $recipientZip
-     * @param \DateTime $startDate
+     * @param \DateTimeInterface $startDate
      * @param string[] $headers
      *
      * @return CarrierServiceInterface[]
@@ -37,7 +37,7 @@ interface CheckoutServiceInterface
      */
     public function getCarrierServices(
         string $recipientZip,
-        \DateTime $startDate,
+        \DateTimeInterface $startDate,
         array $headers = []
     ): array;
 }

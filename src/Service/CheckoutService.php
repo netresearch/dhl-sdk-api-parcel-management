@@ -69,7 +69,7 @@ class CheckoutService implements CheckoutServiceInterface
 
     public function getCarrierServices(
         string $recipientZip,
-        \DateTime $startDate,
+        \DateTimeInterface $startDate,
         array $headers = []
     ): array {
         $headers['Accept'] = 'application/json';
