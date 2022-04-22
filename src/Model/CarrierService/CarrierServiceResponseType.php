@@ -10,12 +10,6 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService;
 
 use Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType\AvailableServicesMap;
 
-/**
- * Class CarrierServiceResponseType
- *
- * @author  Max Melzer <max.melzer@netresearch.de>
- * @link    https://www.netresearch.de/
- */
 class CarrierServiceResponseType
 {
     /**

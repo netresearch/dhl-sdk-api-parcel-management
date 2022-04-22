@@ -16,8 +16,6 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Exception;
  * are suitable for logging.
  *
  * @api
- * @author Max Melzer <max.melzer@netresearch.de>
- * @link   https://www.netresearch.de/
  */
 class ServiceException extends \Exception
 {

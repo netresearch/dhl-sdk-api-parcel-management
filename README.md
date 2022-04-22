@@ -8,7 +8,7 @@ The DHL Paket Parcel Management API SDK package offers an interface to the follo
 
 ### System Requirements
 
-- PHP 7.0+ with JSON extension
+- PHP 7.2+ with JSON extension
 
 ### Package Requirements
 

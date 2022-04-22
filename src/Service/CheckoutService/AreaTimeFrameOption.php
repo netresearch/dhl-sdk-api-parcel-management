@@ -10,12 +10,6 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Service\CheckoutService;
 
 use Dhl\Sdk\Paket\ParcelManagement\Api\Data\AreaTimeFrameOptionInterface;
 
-/**
- * AreaTimeFrameOption
- *
- * @author  Paul Siedler <paul.siedler@netresearch.de>
- * @link    https://www.netresearch.de/
- */
 class AreaTimeFrameOption implements AreaTimeFrameOptionInterface
 {
     /**

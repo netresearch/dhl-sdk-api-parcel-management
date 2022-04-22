@@ -8,12 +8,6 @@ declare(strict_types=1);
 
 namespace Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType;
 
-/**
- * Class Timeframe
- *
- * @author  Max Melzer <max.melzer@netresearch.de>
- * @link    https://www.netresearch.de/
- */
 class Timeframe
 {
     /**

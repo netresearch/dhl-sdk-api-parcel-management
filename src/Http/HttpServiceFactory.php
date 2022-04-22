@@ -25,12 +25,6 @@ use Http\Message\Formatter\FullHttpMessageFormatter;
 use Psr\Http\Client\ClientInterface;
 use Psr\Log\LoggerInterface;
 
-/**
- * Class HttpServiceFactory
- *
- * @author  Christoph Aßmann <christoph.assmann@netresearch.de>
- * @link    https://www.netresearch.de/
- */
 class HttpServiceFactory implements ServiceFactoryInterface
 {
     /**

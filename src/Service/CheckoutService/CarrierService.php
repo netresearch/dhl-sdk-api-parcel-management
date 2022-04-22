@@ -11,12 +11,6 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Service\CheckoutService;
 use Dhl\Sdk\Paket\ParcelManagement\Api\Data\CarrierServiceInterface;
 use Dhl\Sdk\Paket\ParcelManagement\Api\Data\IntervalOptionInterface;
 
-/**
- * CarrierService
- *
- * @author  Paul Siedler <paul.siedler@netresearch.de>
- * @link    https://www.netresearch.de/
- */
 class CarrierService implements CarrierServiceInterface
 {
     /**

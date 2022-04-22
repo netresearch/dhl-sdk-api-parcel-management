@@ -16,14 +16,6 @@ use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 
-/**
- * CheckoutService
- *
- * Entrypoint for DHL Paket Parcel Management checkout operations.
- *
- * @author  Paul Siedler <paul.siedler@netresearch.de>
- * @link    https://www.netresearch.de/
- */
 class CheckoutService implements CheckoutServiceInterface
 {
     private const RESOURCE = 'checkout';
