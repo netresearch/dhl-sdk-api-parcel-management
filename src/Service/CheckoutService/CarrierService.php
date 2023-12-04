@@ -14,32 +14,13 @@ use Dhl\Sdk\Paket\ParcelManagement\Api\Data\IntervalOptionInterface;
 class CarrierService implements CarrierServiceInterface
 {
     /**
-     * @var string
-     */
-    private $code;
-
-    /**
-     * @var bool
-     */
-    private $available;
-
-    /**
-     * @var IntervalOptionInterface[]
-     */
-    private $options;
-
-    /**
-     * CarrierService constructor.
-     *
-     * @param string $code
-     * @param bool $available
      * @param IntervalOptionInterface[] $options
      */
-    public function __construct(string $code, bool $available, array $options = [])
-    {
-        $this->code = $code;
-        $this->available = $available;
-        $this->options = $options;
+    public function __construct(
+        private readonly string $code,
+        private readonly bool $available,
+        private readonly array $options = []
+    ) {
     }
 
     public function getCode(): string

@@ -8,7 +8,7 @@ The DHL Paket Parcel Management API SDK package offers an interface to the follo
 
 ### System Requirements
 
-- PHP 7.2+ with JSON extension
+- PHP 8.1+ with JSON extension
 
 ### Package Requirements
 
@@ -29,10 +29,12 @@ The DHL Paket Parcel Management API SDK package offers an interface to the follo
 
 ### Development Package Requirements
 
+- `fig/log-test`: PSR-3 logger implementation for testing purposes
 - `nyholm/psr7`: PSR-7 HTTP message factory & message implementation
 - `phpunit/phpunit`: Testing framework
 - `php-http/mock-client`: HTTPlug mock client implementation
 - `phpstan/phpstan`: Static analysis tool
+- `rector/rector`: Automatic refactoring tool to help with PHP upgrades
 - `squizlabs/php_codesniffer`: Static analysis tool
 
 ## Installation
@@ -66,7 +68,7 @@ Available DHL services are calculated using the zip code of the recipient's addr
 
 #### Public API
 
-The library's components suitable for consumption comprise of
+The library's components suitable for consumption comprise
 
 * services:
   * service factory

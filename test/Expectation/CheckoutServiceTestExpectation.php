@@ -19,15 +19,15 @@ class CheckoutServiceTestExpectation
     /**
      * Assert that web service response json was properly mapped to service response objects.
      *
-     * @param string $responseJson
      * @param CarrierServiceInterface[] $carrierServices
+     * @throws \JsonException
      */
-    public static function assertAvailableServices(string $responseJson, array $carrierServices)
+    public static function assertAvailableServices(string $responseJson, array $carrierServices): void
     {
-        $expected = json_decode($responseJson, true);
+        $expected = json_decode($responseJson, true, 512, JSON_THROW_ON_ERROR);
 
         // assert that the number of available carrier services in the response json matches with service response.
-        $expectedCount = array_reduce($expected, function (array $carry, array $service) {
+        $expectedCount = array_reduce($expected, function (array $carry, array $service): array {
             $carry['total']++;
             $carry['available'] += (int) $service['available'];
 
@@ -37,7 +37,7 @@ class CheckoutServiceTestExpectation
         /** @var CarrierServiceInterface[] $availableServices */
         $availableServices = array_reduce(
             $carrierServices,
-            function (array $carry, CarrierServiceInterface $carrierService) {
+            function (array $carry, CarrierServiceInterface $carrierService): array {
                 if ($carrierService->isAvailable()) {
                     $carry[$carrierService->getCode()] = $carrierService;
                 }
@@ -78,14 +78,11 @@ class CheckoutServiceTestExpectation
 
     /**
      * Assert that logger contains records with HTTP status code and messages.
-     *
-     * @param RequestInterface $request
-     * @param TestLogger $logger
      */
     public static function assertRequestLogged(
         RequestInterface $request,
         TestLogger $logger
-    ) {
+    ): void {
         Assert::assertTrue($logger->hasInfoRecords(), 'Logger has no info messages');
 
         $uriRegex = '|services/[a-z]+/rest/checkout/\d{5}/availableServices\?startDate=\d+|';
@@ -96,11 +93,7 @@ class CheckoutServiceTestExpectation
         Assert::assertTrue($logger->hasInfoThatMatches($uriRegex), 'Logged messages do not contain request');
     }
 
-    /**
-     * @param string $responseJson
-     * @param TestLogger $logger
-     */
-    public static function assertResponseLogged(string $responseJson, TestLogger $logger)
+    public static function assertResponseLogged(string $responseJson, TestLogger $logger): void
     {
         $statusRegex = '|^HTTP/\d\.\d\s\d{3}\s[\w\s]+$|m';
         $hasResponseStatus = $logger->hasInfoThatMatches($statusRegex);
@@ -110,11 +103,7 @@ class CheckoutServiceTestExpectation
         Assert::assertTrue($hasResponse, 'Logged messages do not contain response');
     }
 
-    /**
-     * @param string $responseBody
-     * @param TestLogger $logger
-     */
-    public static function assertErrorResponseLogged(string $responseBody, TestLogger $logger)
+    public static function assertErrorResponseLogged(string $responseBody, TestLogger $logger): void
     {
         $statusRegex = '|^HTTP/\d\.\d\s\d{3}\s[\w\s]+$|m';
         $hasResponseStatus = $logger->hasErrorThatMatches($statusRegex);

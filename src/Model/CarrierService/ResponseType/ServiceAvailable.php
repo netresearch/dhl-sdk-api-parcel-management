@@ -10,10 +10,7 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType;
 
 class ServiceAvailable
 {
-    /**
-     * @var bool
-     */
-    private $available;
+    private bool $available;
 
     public function isAvailable(): bool
     {

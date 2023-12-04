@@ -13,12 +13,12 @@ class SameDayDeliveryAvailable
     /**
      * @var bool
      */
-    private $available;
+    private bool $available;
 
     /**
      * @var SameDayTimeframe[]
      */
-    private $sameDayTimeframes;
+    private array $sameDayTimeframes;
 
     public function isAvailable(): bool
     {

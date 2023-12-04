@@ -19,9 +19,6 @@ class ServiceExceptionFactory
 {
     /**
      * Create a service exception.
-     *
-     * @param \Throwable $exception
-     * @return ServiceException
      */
     public static function create(\Throwable $exception): ServiceException
     {
@@ -30,9 +27,6 @@ class ServiceExceptionFactory
 
     /**
      * Create a HTTP client exception.
-     *
-     * @param ClientExceptionInterface $exception
-     * @return ServiceException
      */
     public static function createServiceException(ClientExceptionInterface $exception): ServiceException
     {
@@ -44,10 +38,7 @@ class ServiceExceptionFactory
     }
 
     /**
-     * Create a authentication exception.
-     *
-     * @param \Throwable $exception
-     * @return AuthenticationException
+     * Create an authentication exception.
      */
     public static function createAuthenticationException(\Throwable $exception): AuthenticationException
     {

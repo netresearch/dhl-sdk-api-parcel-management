@@ -23,7 +23,7 @@ class CheckoutServiceTest extends TestCase
     /**
      * @return int[][]|string[][]
      */
-    public function successDataProvider()
+    public static function successDataProvider(): array
     {
         return CheckoutServiceTestProvider::getCarrierServicesSuccess();
     }
@@ -31,7 +31,7 @@ class CheckoutServiceTest extends TestCase
     /**
      * @return int[][]|string[][]
      */
-    public function errorDataProvider()
+    public static function errorDataProvider(): array
     {
         return CheckoutServiceTestProvider::getCarrierServicesError();
     }
@@ -43,14 +43,11 @@ class CheckoutServiceTest extends TestCase
      * Assert that response is logged.
      * Assert that available services are mapped properly.
      *
-     * @test
-     * @dataProvider successDataProvider
-     *
-     * @param int $status
-     * @param string $contentType
-     * @param string $responseBody
      * @throws ServiceException
+     * @throws \JsonException
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('successDataProvider')]
+    #[\PHPUnit\Framework\Attributes\Test]
     public function getCarrierServicesSuccess(int $status, string $contentType, string $responseBody): void
     {
         $httpClient = new Client();
@@ -82,14 +79,10 @@ class CheckoutServiceTest extends TestCase
      * Assert that error response is logged.
      * Assert that exception is thrown.
      *
-     * @test
-     * @dataProvider errorDataProvider
-     *
-     * @param int $status
-     * @param string $contentType
-     * @param string $responseBody
      * @throws ServiceException
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('errorDataProvider')]
+    #[\PHPUnit\Framework\Attributes\Test]
     public function getCarrierServicesError(int $status, string $contentType, string $responseBody): void
     {
         $this->expectExceptionCode($status);

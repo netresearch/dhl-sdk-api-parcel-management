@@ -10,20 +10,11 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType;
 
 class Timeframe
 {
-    /**
-     * @var string
-     */
-    private $start;
+    private string $start;
 
-    /**
-     * @var string
-     */
-    private $end;
+    private string $end;
 
-    /**
-     * @var string
-     */
-    private $code;
+    private string $code;
 
     public function getStart(): string
     {

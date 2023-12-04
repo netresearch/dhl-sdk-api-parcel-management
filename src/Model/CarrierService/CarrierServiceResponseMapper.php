@@ -20,7 +20,6 @@ class CarrierServiceResponseMapper
     /**
      * Map the webservice data structure to publicly response object suitable for third-party consumption.
      *
-     * @param AvailableServicesMap $response
      * @return CarrierServiceInterface[]
      */
     public function map(AvailableServicesMap $response): array

@@ -10,15 +10,9 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType;
 
 class TimeInterval
 {
-    /**
-     * @var string
-     */
-    private $start;
+    private string $start;
 
-    /**
-     * @var string
-     */
-    private $end;
+    private string $end;
 
     public function getStart(): string
     {

@@ -12,26 +12,11 @@ use Dhl\Sdk\Paket\ParcelManagement\Api\Data\TimeFrameOptionInterface;
 
 class TimeFrameOption implements TimeFrameOptionInterface
 {
-    /**
-     * @var string
-     */
-    private $start;
-
-    /**
-     * @var string
-     */
-    private $end;
-
-    /**
-     * @var string
-     */
-    private $code;
-
-    public function __construct(string $start, string $end, string $code)
-    {
-        $this->start = $start;
-        $this->end = $end;
-        $this->code = $code;
+    public function __construct(
+        private readonly string $start,
+        private readonly string $end,
+        private readonly string $code
+    ) {
     }
 
     public function getStart(): string

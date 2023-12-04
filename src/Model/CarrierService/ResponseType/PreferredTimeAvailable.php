@@ -10,15 +10,12 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType;
 
 class PreferredTimeAvailable
 {
-    /**
-     * @var bool
-     */
-    private $available;
+    private bool $available;
 
     /**
      * @var Timeframe[]
      */
-    private $timeFrames;
+    private array $timeFrames;
 
     public function isAvailable(): bool
     {

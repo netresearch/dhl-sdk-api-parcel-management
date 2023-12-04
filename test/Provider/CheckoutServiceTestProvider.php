@@ -16,7 +16,7 @@ class CheckoutServiceTestProvider
      *
      * @return int[][]|string[][]
      */
-    public static function getCarrierServicesSuccess()
+    public static function getCarrierServicesSuccess(): array
     {
         $availableServicesResponse = \file_get_contents(__DIR__ . '/_files/checkout/success.json');
 
@@ -31,7 +31,7 @@ class CheckoutServiceTestProvider
      *
      * @return int[][]|string[][]
      */
-    public static function getCarrierServicesError()
+    public static function getCarrierServicesError(): array
     {
         // note: errors don't care about "Accept" header.
         $badRequestResponse = \file_get_contents(__DIR__ . '/_files/checkout/badRequest.json');

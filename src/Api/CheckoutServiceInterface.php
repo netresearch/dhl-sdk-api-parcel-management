@@ -24,12 +24,9 @@ interface CheckoutServiceInterface
     /**
      * Obtain a list of available services for the given postal code and date.
      *
-     * @param string $recipientZip
-     * @param \DateTimeInterface $startDate
      * @param string[] $headers
      *
      * @return CarrierServiceInterface[]
-     *
      * @throws AuthenticationException
      * @throws ServiceException
      */

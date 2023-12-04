@@ -10,35 +10,17 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType;
 
 class SameDayTimeframe
 {
-    /**
-     * @var string
-     */
-    private $start;
+    private string $start;
 
-    /**
-     * @var string
-     */
-    private $end;
+    private string $end;
 
-    /**
-     * @var string
-     */
-    private $code;
+    private string $code;
 
-    /**
-     * @var string
-     */
-    private $denselyPopulatedAreaId;
+    private string $denselyPopulatedAreaId;
 
-    /**
-     * @var string
-     */
-    private $denselyPopulatedAreaName;
+    private string $denselyPopulatedAreaName;
 
-    /**
-     * @var string
-     */
-    private $deliveryBaseId;
+    private string $deliveryBaseId;
 
     public function getStart(): string
     {

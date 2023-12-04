@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace Dhl\Sdk\Paket\ParcelManagement\Api;
 
 use Dhl\Sdk\Paket\ParcelManagement\Exception\ServiceException;
-use Dhl\Sdk\Paket\ParcelManagement\Service\CheckoutService;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -24,13 +23,6 @@ interface ServiceFactoryInterface
 
     /**
      * Create the checkout service to retrieve applicable carrier services and estimated delivery dates during checkout.
-     *
-     * @param string $appId
-     * @param string $appToken
-     * @param string $ekp
-     * @param LoggerInterface $logger
-     * @param bool $sandboxMode
-     * @return CheckoutService
      *
      * @throws ServiceException
      */

@@ -12,14 +12,8 @@ use Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType\AvailableSe
 
 class CarrierServiceResponseType
 {
-    /**
-     * @var AvailableServicesMap
-     */
-    private $availableServicesMap;
-
-    public function __construct(AvailableServicesMap $availableServicesMap)
+    public function __construct(private readonly AvailableServicesMap $availableServicesMap)
     {
-        $this->availableServicesMap = $availableServicesMap;
     }
 
     public function getAvailableServicesMap(): AvailableServicesMap

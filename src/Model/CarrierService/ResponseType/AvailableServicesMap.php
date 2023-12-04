@@ -10,40 +10,19 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType;
 
 class AvailableServicesMap
 {
-    /**
-     * @var ServiceAvailable
-     */
-    private $preferredLocation;
+    private ServiceAvailable $preferredLocation;
 
-    /**
-     * @var ServiceAvailable
-     */
-    private $preferredNeighbour;
+    private ServiceAvailable $preferredNeighbour;
 
-    /**
-     * @var PreferredDayAvailable
-     */
-    private $preferredDay;
+    private PreferredDayAvailable $preferredDay;
 
-    /**
-     * @var PreferredTimeAvailable
-     */
-    private $preferredTime;
+    private PreferredTimeAvailable $preferredTime;
 
-    /**
-     * @var ServiceAvailable
-     */
-    private $inCarDelivery;
+    private ServiceAvailable $inCarDelivery;
 
-    /**
-     * @var SameDayDeliveryAvailable
-     */
-    private $sameDayDelivery;
+    private SameDayDeliveryAvailable $sameDayDelivery;
 
-    /**
-     * @var ServiceAvailable
-     */
-    private $noNeighbourDelivery;
+    private ServiceAvailable $noNeighbourDelivery;
 
     public function getPreferredLocation(): ServiceAvailable
     {

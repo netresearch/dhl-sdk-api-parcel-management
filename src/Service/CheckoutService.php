@@ -20,43 +20,13 @@ class CheckoutService implements CheckoutServiceInterface
 {
     private const RESOURCE = 'checkout';
 
-    /**
-     * @var ClientInterface
-     */
-    private $client;
-
-    /**
-     * @var string
-     */
-    private $baseUrl;
-
-    /**
-     * @var RequestFactoryInterface
-     */
-    private $requestFactory;
-
-    /**
-     * @var \JsonMapper
-     */
-    private $jsonMapper;
-
-    /**
-     * @var CarrierServiceResponseMapper
-     */
-    private $responseMapper;
-
     public function __construct(
-        ClientInterface $client,
-        string $baseUrl,
-        RequestFactoryInterface $requestFactory,
-        \JsonMapper $jsonMapper,
-        CarrierServiceResponseMapper $responseMapper
+        private readonly ClientInterface $client,
+        private readonly string $baseUrl,
+        private readonly RequestFactoryInterface $requestFactory,
+        private readonly \JsonMapper $jsonMapper,
+        private readonly CarrierServiceResponseMapper $responseMapper
     ) {
-        $this->client = $client;
-        $this->baseUrl = $baseUrl;
-        $this->requestFactory = $requestFactory;
-        $this->jsonMapper = $jsonMapper;
-        $this->responseMapper = $responseMapper;
     }
 
     public function getCarrierServices(
@@ -85,7 +55,10 @@ class CheckoutService implements CheckoutServiceInterface
             $responseJson = (string)$response->getBody();
 
             /** @var AvailableServicesMap $servicesResponse */
-            $servicesResponse = $this->jsonMapper->map(\json_decode($responseJson), new AvailableServicesMap());
+            $servicesResponse = $this->jsonMapper->map(
+                \json_decode($responseJson, null, 512, JSON_THROW_ON_ERROR),
+                new AvailableServicesMap()
+            );
         } catch (ClientExceptionInterface $exception) {
             if ($exception->getCode() === 401) {
                 throw ServiceExceptionFactory::createAuthenticationException($exception);

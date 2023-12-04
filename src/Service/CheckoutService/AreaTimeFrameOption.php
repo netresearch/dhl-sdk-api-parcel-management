@@ -12,50 +12,14 @@ use Dhl\Sdk\Paket\ParcelManagement\Api\Data\AreaTimeFrameOptionInterface;
 
 class AreaTimeFrameOption implements AreaTimeFrameOptionInterface
 {
-    /**
-     * @var string
-     */
-    private $start;
-
-    /**
-     * @var string
-     */
-    private $end;
-
-    /**
-     * @var string
-     */
-    private $code;
-
-    /**
-     * @var string
-     */
-    private $denselyPopulatedAreaId;
-
-    /**
-     * @var string
-     */
-    private $denselyPopulatedAreaName;
-
-    /**
-     * @var string
-     */
-    private $deliveryBaseId;
-
     public function __construct(
-        string $start,
-        string $end,
-        string $code,
-        string $denselyPopulatedAreaId,
-        string $denselyPopulatedAreaName,
-        string $deliveryBaseId
+        private readonly string $start,
+        private readonly string $end,
+        private readonly string $code,
+        private readonly string $denselyPopulatedAreaId,
+        private readonly string $denselyPopulatedAreaName,
+        private readonly string $deliveryBaseId
     ) {
-        $this->start = $start;
-        $this->end = $end;
-        $this->code = $code;
-        $this->denselyPopulatedAreaId = $denselyPopulatedAreaId;
-        $this->denselyPopulatedAreaName = $denselyPopulatedAreaName;
-        $this->deliveryBaseId = $deliveryBaseId;
     }
 
     public function getStart(): string
