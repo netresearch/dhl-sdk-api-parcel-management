@@ -86,7 +86,7 @@ class CheckoutServiceTestExpectation
         Assert::assertTrue($logger->hasInfoRecords(), 'Logger has no info messages');
 
         $uriRegex = '|services/[a-z]+/rest/checkout/\d{5}/availableServices\?startDate=\d+|';
-        foreach ($request->getHeaders() as $name => $values) {
+        foreach ($request->getHeaders() as $values) {
             $logger->hasInfoThatContains($values[0]);
         }
 

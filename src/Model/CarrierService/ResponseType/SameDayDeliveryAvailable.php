@@ -10,9 +10,6 @@ namespace Dhl\Sdk\Paket\ParcelManagement\Model\CarrierService\ResponseType;
 
 class SameDayDeliveryAvailable
 {
-    /**
-     * @var bool
-     */
     private bool $available;
 
     /**
